@@ -13,3 +13,10 @@
  *= require_tree .
  *= require_self
  */
+
+ $left-background-color: #e8b3a2;
+
+ .trick-left {
+    background-color: $left-background-color;
+    height: 100vh;
+ }
