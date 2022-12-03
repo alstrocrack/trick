@@ -1,2 +1,26 @@
-<h1>home</h1>
-<%= @user.email %>
+<div class="py-4">
+  <section class="mb-4">
+    <h2 class="fs-3">Enter Response Setting</h2>
+    <p>When an HTTP request is sent from an IP address specified in From IP, a dummy request is returned according to the following settings.</p>
+  </section>
+  <div>
+    <form>
+      <div class="mb-3">
+        <label for="from" class="form-label">From IP</label>
+        <input type="text" class="form-control" id="from" placeholder="172.19.212.248">
+      </div>
+      <div class="mb-3">
+        <label for="status" class="form-label">Status Code</label>
+        <input type="text" class="form-control" id="status" placeholder="200">
+      </div>
+      <div class="mb-3">
+        <label for="header" class="form-label">Header Json</label>
+        <textarea type="text" class="form-control" id="header" style="height: 100px" placeholder='{ "X-DUMMY-KEY": "abcdef" }'></textarea>
+      </div>
+      <div class="mb-3">
+        <label for="body" class="form-label">Body Json</label>
+        <textarea type="text" class="form-control" id="body" style="height: 100px" placeholder='{ "data": "ghijkl" }'></textarea>
+      </div>
+    </form>
+  </div>
+</div>
