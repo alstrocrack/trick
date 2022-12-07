@@ -1,3 +1,6 @@
 {
-  "ruby.intellisense": "rubyLocate",
+  "[ruby]": {
+    "editor.formatOnSave": true
+  },
+  "ruby.intellisense": "rubyLocate"
 }

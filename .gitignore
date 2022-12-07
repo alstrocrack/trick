@@ -36,3 +36,4 @@
 
 # Added
 .env*
+/node_modules
