@@ -14,9 +14,17 @@
  *= require_self
  */
 
- $left-background-color: #e8b3a2;
+@mixin center {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
 
- .trick-left {
-    background-color: $left-background-color;
-    height: 100vh;
- }
+// common
+.trick-center {
+  @include center;
+}
+
+.trick-margin-bottom-none {
+  margin-bottom: 0;
+}
