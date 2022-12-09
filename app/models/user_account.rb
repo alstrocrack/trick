@@ -1,2 +1,2 @@
-class UserAccounts < ApplicationRecord
+class UserAccount < ApplicationRecord
 end
