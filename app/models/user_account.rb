@@ -1,0 +1,2 @@
+class UserAccounts < ApplicationRecord
+end
