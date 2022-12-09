@@ -4,7 +4,9 @@ class HomeController < ApplicationController
   end
 
   def add_new_request
-    raise "NULL From" if params[:from].blank?
+    if params[:from].blank?
+      raise ApplicationError.new(ErrorCode::E1000, ErrorMessage::Param)
+    end
     # puts "Hello"
     redirect_to "/"
   end
