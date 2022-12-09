@@ -3,15 +3,17 @@
     <h2 class="fs-3">Enter Response Setting</h2>
     <p>When an HTTP request is sent from an IP address specified in From IP, a dummy request is returned according to the following settings.</p>
   </section>
-  <div>
+  <div class="mb-5">
     <form method="post" action="/home/add_new_request" >
-      <div class="mb-3">
-        <label for="from" class="form-label">From IP</label>
-        <input type="text" class="form-control" name="from" id="from" placeholder="172.19.212.248">
-      </div>
-      <div class="mb-3">
-        <label for="status" class="form-label">Status Code</label>
-        <input type="text" class="form-control" name="status" id="status" placeholder="200">
+      <div class="row mb-3">
+        <div class="col-6">
+          <label for="from" class="form-label">From IP</label>
+          <input type="text" class="form-control" name="from" id="from" placeholder="172.19.212.248">
+        </div>
+        <div class="col-6">
+          <label for="status" class="form-label">Status Code</label>
+          <input type="text" class="form-control" name="status" id="status" placeholder="200">
+        </div>
       </div>
       <div class="mb-3">
         <label for="header" class="form-label">Header Json</label>
@@ -25,4 +27,30 @@
       <button type="submit" class="btn btn-primary col-2">OK</button>
     </form>
   </div>
+  <%- if @requests %>
+    <div>
+      <p class="fs-3 fw-bold">The set requests</p>
+      <%- @requests.each_with_index do |request, index| %>
+        <div class="mb-2 border border-light border-3 rounded p-2">
+          <p><%= index + 1 %></p>
+          <dl class="mb-1">
+            <dt>From</dt>
+            <dd><%= request.from_address %></dd>
+          </dl>
+          <dl class="mb-1">
+            <dt>Status Code</dt>
+            <dd><%= request.status_code %></dd>
+          </dl>
+          <dl>
+            <dt class="mb-1">Header</dt>
+            <dd><%= request.response_header %></dd>
+          </dl>
+          <dl>
+            <dt>Body</dt>
+            <dd><%= request.response_body %></dd>
+          </dl>
+        </div>
+      <%- end %>
+    </div>
+  <%- end %>
 </div>

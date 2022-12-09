@@ -1,6 +1,7 @@
 class HomeController < ApplicationController
   def index
     @user = UserAccount.first
+    @requests = Request.where(user_id: @user.id)
   end
 
   def add_new_request
