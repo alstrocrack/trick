@@ -19,12 +19,62 @@
   justify-content: center !important;
   align-items: center !important;
 }
+$common-red: #f83600;
+$common-yellow: #f9d423;
+$common-orange: #ffa500;
+
+h1, h2, h3, h4, h5, h6, p {
+  font-family: sans-serif;
+  margin-bottom: 0 !important;
+}
 
 // common
 .trick-center {
   @include center;
 }
 
+.trick-title {
+  @include center;
+  padding: 1rem 2rem;
+  color: #fff;
+  border-radius: 10px;
+  background-image: -webkit-gradient(linear, left top, right top, from($common-red), to($common-yellow));
+  background-image: -webkit-linear-gradient(left, $common-red 0%, $common-yellow 100%);
+  background-image: linear-gradient(to right, $common-red 0%, $common-yellow 100%);
+}
+
+.trick-subtitle {
+  label {
+    font-weight: 600;
+  }
+}
+
+.trick-desc {
+  position: relative;
+  padding: 0.5rem 0.5rem;
+  &:after {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    content: '';
+    background-image: -webkit-gradient(linear, left top, right top, from(#fa709a), to(#fee140));
+    background-image: -webkit-linear-gradient(left, #fa709a 0%, #fee140 100%);
+    background-image: linear-gradient(to right, #fa709a 0%, #fee140 100%);
+  }
+}
+
 .trick-margin-bottom-none {
   margin-bottom: 0;
+}
+
+.trick-number {
+  @include center;
+  color: white;
+  padding: 0.5rem 0.5rem;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background-color: $common-orange;
 }
