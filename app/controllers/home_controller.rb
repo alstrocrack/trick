@@ -10,7 +10,7 @@ class HomeController < ApplicationController
       Request.new(
         from_address: params[:from],
         response_header: params[:header],
-        response_body: params[:body],
+        response_body: params[:body]
       )
     request.save!
     redirect_to "/"

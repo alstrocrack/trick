@@ -29,26 +29,34 @@
   </div>
   <%- if @requests %>
     <div class="mt-5">
-      <p class="fs-3 trick-title">The set requests</p>
+      <p class="fs-3 trick-title mb-4">The set requests</p>
       <%- @requests.each_with_index do |request, index| %>
-        <div class="mb-2 border border-light border-3 rounded p-2">
-          <p class="trick-number"><%= format("%02d", index + 1) %></p>
-          <dl class="mb-1">
-            <dt>From</dt>
-            <dd><%= request.from_address %></dd>
-          </dl>
-          <dl class="mb-1">
-            <dt>Status Code</dt>
-            <dd><%= request.status_code %></dd>
-          </dl>
-          <dl>
-            <dt class="mb-1">Header</dt>
-            <dd><%= request.response_header %></dd>
-          </dl>
-          <dl>
-            <dt>Body</dt>
-            <dd><%= request.response_body %></dd>
-          </dl>
+        <div class="mb-2 border border-light border-3 rounded p-4">
+          <p class="trick-number mb-3"><%= format("%02d", index + 1) %></p>
+          <div class="row">
+            <div class="col-2">
+              <dl class="mb-1">
+                <dt>From</dt>
+                <dd><%= request.from_address %></dd>
+              </dl>
+              <dl class="mb-1">
+                <dt>Status Code</dt>
+                <dd><%= request.status_code %></dd>
+              </dl>
+            </div>
+            <div class="col-5">
+              <dl>
+                <dt class="mb-1">Header</dt>
+                <dd><%= request.response_header %></dd>
+              </dl>
+            </div>
+            <div class="col-5">
+              <dl>
+                <dt>Body</dt>
+                <dd><%= request.response_body %></dd>
+              </dl>
+            </div>
+          </div>
         </div>
       <%- end %>
     </div>
