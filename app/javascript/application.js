@@ -3,6 +3,5 @@ import "@hotwired/turbo-rails";
 import "controllers";
 
 // Modules to add on your own
-import { Ajax } from "./ajax";
-const ajax = new Ajax("post", "/", "{}", null, null);
-ajax.try();
+import { getXhr } from "./ajax";
+getXhr("/", "{}", null, null);
