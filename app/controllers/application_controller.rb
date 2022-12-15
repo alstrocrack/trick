@@ -1,3 +1,3 @@
-require "./app/error/application_error"
 class ApplicationController < ActionController::Base
+  before_action { @user = UserAccount.first }
 end
