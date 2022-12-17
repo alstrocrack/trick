@@ -17,7 +17,6 @@ class HomeController < ApplicationController
         )
       request.save!
     rescue ApplicationError => e
-      debugger
       flash[:danger] = "E#{e.code}: #{e.msg}"
     rescue JSON::ParserError => e
       flash[:danger] = e
