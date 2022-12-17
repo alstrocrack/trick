@@ -6,15 +6,23 @@ class HomeController < ApplicationController
   end
 
   def add
-    raise ApplicationError.new(ErrorCode::E1002, ErrorMessage::From) if input[:from].blank?
-    request =
-      Request.new(
-        user_id: @user.id,
-        from_address: params[:from],
-        response_header: JSON.parse(params[:header]),
-        response_body: JSON.parse(params[:body])
-      )
-    request.save!
-    redirect_to "/"
+    begin
+      raise ApplicationError.new(ErrorCode::E1002, ErrorMessage::From) if params[:from].blank?
+      request =
+        Request.new(
+          user_id: @user.id,
+          from_address: params[:from],
+          response_header: JSON.parse(params[:header]),
+          response_body: JSON.parse(params[:body])
+        )
+      request.save!
+    rescue ApplicationError => e
+      debugger
+      flash[:danger] = "E#{e.code}: #{e.msg}"
+    rescue JSON::ParserError => e
+      flash[:danger] = e
+    ensure
+      redirect_to "/"
+    end
   end
 end

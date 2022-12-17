@@ -4,4 +4,3 @@ import "controllers";
 
 // Modules to add on your own
 import { getXhr } from "./ajax";
-getXhr("/", "{}", null, null);
