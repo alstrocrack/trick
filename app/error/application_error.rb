@@ -1,7 +1,7 @@
 class ApplicationError < StandardError
-  attr_accessor :code
+  attr_reader :code, :msg
   def initialize(code, msg)
-    super(msg)
+    @msg = msg
     @code = code
   end
 end
