@@ -19,6 +19,17 @@
   justify-content: center !important;
   align-items: center !important;
 }
+@mixin x-center {
+  display: flex !important;
+  justify-content: center !important;
+}
+@mixin y-center {
+  display: flex !important;
+  align-items: center !important;
+}
+@mixin width-center {
+  margin: 0 auto;
+}
 $common-red: #f83600;
 $common-yellow: #f9d423;
 $common-orange: #ffa500;
@@ -77,4 +88,12 @@ h1, h2, h3, h4, h5, h6, p {
   height: 2.5rem;
   border-radius: 50%;
   background-color: $common-orange;
+}
+
+.trick-width-center {
+  @include width-center;
+}
+
+.trick-x-center {
+  @include x-center;
 }
