@@ -3,4 +3,20 @@ import "@hotwired/turbo-rails";
 import "controllers";
 
 // Modules to add on your own
-import { getXhr } from "./ajax";
+import { getXhr, postXhr } from "./ajax";
+
+const homeAddRequestButton = document.getElementById("homeAddRequest");
+homeAddRequestButton.addEventListener("click", () => {
+  postXhr(
+    "/home/add",
+    {
+      user_id: 1,
+      from: "127.0.0.1",
+      header: { text: "text" },
+      body: { body: "body" },
+    },
+    () => {
+      window.location.reload();
+    }
+  );
+});
