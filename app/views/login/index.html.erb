@@ -4,19 +4,20 @@
     <p class="trick-desc">Please enter your email and password to login.</p>
   </section>
   <div class="mb-5">
-    <form method="post" action="/home/add" class="trick-subtitle">
+    <%= form_with url: "login", method: :post do |form| %>
       <div class="mb-3">
         <div class="col-6 trick-width-center">
           <label for="email" class="form-label">Email</label>
-          <input type="text" class="form-control" name="email" id="email" placeholder="xxx@xxx.co.jp">
+          <input type="text" class="form-control" name="login[email]" id="email" placeholder="xxx@xxx.co.jp">
         </div>
         <div class="col-6 trick-width-center">
           <label for="password" class="form-label">Password</label>
-          <input type="password" class="form-control" name="password" id="password">
+          <input type="password" class="form-control" name="login[password]" id="password">
         </div>
       </div>
+      
       <button type="submit" class="btn btn-primary col-2 trick-x-center trick-width-center">OK</button>
-    </form>
+    <% end %>
   </div>
   <div class="trick-x-center">
     <div class="border border-success border-3 rounded p-3 d-inline-block">
