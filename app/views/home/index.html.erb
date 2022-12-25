@@ -4,28 +4,28 @@
     <p class="trick-desc">When an HTTP request is sent from an IP address specified in From IP, a dummy request is returned according to the following settings.</p>
   </section>
   <div class="mb-5">
-    <form class="trick-subtitle" method="post" action="/home/add">
+    <%= form_with url: "/home/add", method: :post do |form| %>
       <div class="row mb-3">
         <div class="col-6">
           <label for="from" class="form-label">From IP</label>
-          <input type="text" class="form-control" name="from" id="from" placeholder="172.19.212.248">
+          <input type="text" class="form-control" name="home[from]" id="from" placeholder="172.19.212.248">
         </div>
         <div class="col-6">
           <label for="status" class="form-label">Status Code</label>
-          <input type="text" class="form-control" name="status" id="status" placeholder="200">
+          <input type="text" class="form-control" name="home[status]" id="status" placeholder="200">
         </div>
       </div>
       <div class="mb-3">
         <label for="header" class="form-label">Header Json</label>
-        <textarea type="text" class="form-control" name="header" id="header" style="height: 100px" placeholder='{ "X-DUMMY-KEY": "abcdef" }'></textarea>
+        <textarea type="text" class="form-control" name="home[header]" id="header" style="height: 100px" placeholder='{ "X-DUMMY-KEY": "abcdef" }'></textarea>
       </div>
       <div class="mb-3">
         <label for="body" class="form-label">Body Json</label>
-        <textarea type="text" class="form-control" name="body" id="body" style="height: 100px" placeholder='{ "data": "ghijkl" }'></textarea>
+        <textarea type="text" class="form-control" name="home[body]" id="body" style="height: 100px" placeholder='{ "data": "ghijkl" }'></textarea>
       </div>
 
       <button type="submit" class="btn btn-primary col-2">OK</button>
-    </form>
+    <% end %>
   </div>
   <%- if @requests %>
     <div class="mt-5">
