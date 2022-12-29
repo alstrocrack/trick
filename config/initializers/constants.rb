@@ -14,3 +14,7 @@ class ErrorMessage
   NonExistentUsers = "User not found." #1005
   InvalidPassword = "This is invalid password. Please check your password and try again." #1006
 end
+class UserSessionStatus
+  Enable = 1
+  Disable = 2
+end
