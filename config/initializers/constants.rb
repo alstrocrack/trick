@@ -5,6 +5,7 @@ class ErrorCode
   E1004 = 1004
   E1005 = 1005
   E1006 = 1006
+  E1007 = 1007
 end
 class ErrorMessage
   Param = "Invalid params." #1001
@@ -13,6 +14,7 @@ class ErrorMessage
   LackOfParameters = "Please enter both email and password." #1004
   NonExistentUsers = "User not found." #1005
   InvalidPassword = "This is invalid password. Please check your password and try again." #1006
+  InvalidUserSession = "Invalid Session." #1006
 end
 class UserSessionStatus
   Enable = 1

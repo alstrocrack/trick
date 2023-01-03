@@ -16,7 +16,10 @@
   <body>
     <header class="bg-light d-flex justify-content-between align-items-center px-4 py-2">
       <h1 class="fs-3">Fake</h1>
-      <nav>
+      <nav class="d-flex align-items-center">
+        <%- if @user_account %>
+          <p class="me-3">user: <%= @user_account.email %></p>
+        <%- end %>
         <ul class="list-unstyled trick-margin-bottom-none">
           <li><a href="/login" class="btn btn-outline-primary trick-center" type="button">Login</a></li>
         </ul>
