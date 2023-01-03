@@ -8,7 +8,7 @@ class UserAccount < ApplicationRecord
     return requests.size >= MAX_REGISTER_REQUESTS
   end
   def authenticate?(password)
-    password_hash = Digest::SHA256.digest(password.strip)
+    password_hash = Digest::SHA256.hexdigest(password.strip)
     self.password_hash == password_hash
   end
 end
