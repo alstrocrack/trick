@@ -97,3 +97,12 @@ h1, h2, h3, h4, h5, h6, p {
 .trick-x-center {
   @include x-center;
 }
+
+// Home
+.trick-service-title {
+  text-decoration: none;
+  color: inherit;
+  &:hover {
+    color: inherit;
+  }
+}
