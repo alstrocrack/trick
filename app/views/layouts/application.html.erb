@@ -21,7 +21,11 @@
           <p class="me-3">user: <%= @user_account.email %></p>
         <%- end %>
         <ul class="list-unstyled trick-margin-bottom-none">
-          <li><a href="/login" class="btn btn-outline-primary trick-center" type="button">Login</a></li>
+          <%- if @user_account %>
+            <li><%= button_to "Logout", "/logout", method: :delete, class: "btn btn-outline-primary trick-center" %></li>
+          <%- else %>
+            <li><%= link_to "Login", "/login", class: "btn btn-outline-primary trick-center" %></li>
+          <%- end %>
         </ul>
       </nav>
     </header>

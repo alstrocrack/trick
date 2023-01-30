@@ -25,14 +25,6 @@ class ApplicationController < ActionController::Base
   def fetch_user_session
     user_session = UserSession.find_by(value: session[:user], status: UserSessionStatus::Enable)
     @user_account = nil
-    @user_account = UserAccount.find_by(id: user_session.id) if user_session && user_session.expired_at.present? && Time.now < user_session.expired_at
-  end
-
-  def logout
-    user_session = UserSession.find_by(value: session[:user], status: UserSessionStatus::Enable, user_id: @user_account.id)
-    user_session.status = UserSessionStatus::Disable
-    user_session.save!
-    @user_account, session[:user] = nil
-    redirect_to "/"
+    @user_account = UserAccount.find_by(id: user_session.user_id) if user_session
   end
 end
