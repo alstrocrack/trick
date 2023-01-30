@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   # login
   get "/login", controller: :login, action: :index
   post "/login", controller: :login, action: :authenticate
+  delete "/logout", controller: :login, action: :logout
 
   # root
   root to: "home#index"
