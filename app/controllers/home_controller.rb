@@ -1,9 +1,10 @@
 require "json"
 
 class HomeController < ApplicationController
-  before_action { authenticate_user }
+  before_action { fetch_user_session }
+
   def index
-    @requests = Request.where(user_id: @user_account.id).order(id: :desc).limit(5)
+    @requests = Request.where(user_id: @user_account.id).order(id: :desc).limit(5) if @user_account
   end
 
   def add
