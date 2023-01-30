@@ -22,30 +22,9 @@ class ApplicationController < ActionController::Base
     user_session.save!
   end
 
-  def authenticate_user
-    # XXX: REWRITE
+  def fetch_user_session
     user_session = UserSession.find_by(value: session[:user], status: UserSessionStatus::Enable)
-    # raise ApplicationError.new(ErrorCode::E1007, ErrorMessage::InvalidUserSession) if user_session.nil?
-    # user_account = UserAccount.find_by(id: user_session.user_id)
-    # raise ApplicationError.new(ErrorCode::E1007, ErrorMessage::InvalidUserSession) if user_account.nil?
-    if user_session&.expired_at.nil?
-      # @user_account = user_account
-      @user_account = UserAccount.first
-    else
-      if Time.now >= user_session.expired_at
-        logout
-        redirect_to "/"
-      else
-        @user_account = user_account
-      end
-    end
-  end
-
-  def logout
-    user_session = UserSession.find_by(value: session[:user], status: UserSessionStatus::Enable, user_id: @user_account.id)
-    user_session.status = UserSessionStatus::Disable
-    user_session.save!
-    @user_account, session[:user] = nil
-    redirect_to "/"
+    @user_account = nil
+    @user_account = UserAccount.find_by(id: user_session.user_id) if user_session
   end
 end
