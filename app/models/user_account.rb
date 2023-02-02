@@ -1,6 +1,9 @@
 require "digest"
 
 class UserAccount < ApplicationRecord
+  # has_many :requests
+  # has_many :user_sessions
+
   MAX_REGISTER_REQUESTS = 5
 
   def is_exceed?

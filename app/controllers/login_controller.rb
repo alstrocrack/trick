@@ -8,7 +8,13 @@ class LoginController < ApplicationController
   def authenticate
     execute("/login", "login", :email, :password) do |parameters|
       raise ApplicationError.new(ErrorCode::E1004, ErrorMessage::LackOfParameters) if parameters[:email].blank? || parameters[:password].blank?
-      set_user_with_login(parameters[:email], parameters[:password])
+      user_account = UserAccount.find_by(email: parameters[:email])
+      raise ApplicationError.new(ErrorCode::E1005, ErrorMessage::NonExistentUsers) if user_account.nil?
+      raise ApplicationError.new(ErrorCode::E1006, ErrorMessage::InvalidPassword) unless user_account.authenticate?(parameters[:password])
+      session[:user] = SecureRandom.uuid
+      user_session = UserSession.new(value: session[:user], status: UserSessionStatus::Enable, user_id: user_account.id)
+      user_session.save!
+      redirect_to "/"
     end
   end
 
