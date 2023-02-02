@@ -1,25 +1,16 @@
 class ApplicationController < ActionController::Base
-  def execute(redirect, group, *filters)
+  def execute(fail_redirect_path, group, *filters)
     parameters = params.require(group).permit(filters)
     yield(parameters)
   rescue ApplicationError => e
     flash[:danger] = "E#{e.code}: #{e.msg}"
+    redirect_to fail_redirect_path if fail_redirect_path
   rescue JSON::ParserError => e
     flash[:danger] = e
+    redirect_to fail_redirect_path if fail_redirect_path
   rescue => e
     flash[:danger] = e
-  ensure
-    redirect_to redirect if redirect
-  end
-
-  def set_user_with_login(email, password)
-    user_account = UserAccount.find_by(email: email)
-    raise ApplicationError.new(ErrorCode::E1005, ErrorMessage::NonExistentUsers) if user_account.nil?
-    raise ApplicationError.new(ErrorCode::E1006, ErrorMessage::InvalidPassword) unless user_account.authenticate?(password)
-
-    session[:user] = SecureRandom.uuid
-    user_session = UserSession.new(value: session[:user], status: UserSessionStatus::Enable, user_id: user_account.id)
-    user_session.save!
+    redirect_to fail_redirect_path if fail_redirect_path
   end
 
   def fetch_user_session
