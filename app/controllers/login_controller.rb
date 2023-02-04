@@ -6,7 +6,7 @@ class LoginController < ApplicationController
   end
 
   def authenticate
-    execute("/login", "login", :email, :password) do |parameters|
+    post_execute("/login", "login", :email, :password) do |parameters|
       raise ApplicationError.new(ErrorCode::E1004, ErrorMessage::LackOfParameters) if parameters[:email].blank? || parameters[:password].blank?
       user_account = UserAccount.find_by(email: parameters[:email])
       raise ApplicationError.new(ErrorCode::E1005, ErrorMessage::NonExistentUsers) if user_account.nil?
