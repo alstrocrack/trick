@@ -14,5 +14,13 @@ RSpec.describe "Homes", type: :system do
   end
 
   context "as a registered user" do
+    #
+  end
+
+  context "as a guest" do
+    it "does not display any request" do
+      visit root_path
+      expect(page).to_not have_content "The set requests"
+    end
   end
 end
