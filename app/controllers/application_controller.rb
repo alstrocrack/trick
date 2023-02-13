@@ -19,8 +19,11 @@ class ApplicationController < ActionController::Base
   end
 
   def fetch_user_session
-    user_session = UserSession.find_by(value: session[:user], status: UserSessionStatus::Enable)
-    @user_account = nil
-    @user_account = UserAccount.find_by(id: user_session.user_id) if user_session
+    if session[:user]
+      user_session = UserSession.find_by(value: session[:user], status: UserSessionStatus::Enable)
+      @user_account = UserAccount.find_by(id: user_session.user_id) if user_session
+    elsif session[:guest]
+      @guest_user = UserSession.find_by(value: session[:guest], status: UserSessionStatus::Temporary).id
+    end
   end
 end

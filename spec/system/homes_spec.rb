@@ -22,5 +22,17 @@ RSpec.describe "Homes", type: :system do
       visit root_path
       expect(page).to_not have_content "The set requests"
     end
+
+    it "adds a request" do
+      visit root_path
+      expect {
+        fill_in "home[from]", with: "198.0.0.1"
+        fill_in "home[status]", with: 200
+        fill_in "home[header]", with: '{ "x-header-item": "abc" }'
+        fill_in "home[body]", with: '{ "body": "def" }'
+
+        click_button "Register Request"
+      }.to change(Request, :count).by(1)
+    end
   end
 end
