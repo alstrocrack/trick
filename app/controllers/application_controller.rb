@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
       user_session = UserSession.find_by(value: session[:user], status: UserSessionStatus::Enable)
       @user_account = UserAccount.find_by(id: user_session.user_id) if user_session
     elsif session[:guest]
-      @guest_user = UserSession.find_by(value: session[:guest], status: UserSessionStatus::Temporary).id
+      @guest_user_id = UserSession.find_by(value: session[:guest], status: UserSessionStatus::Temporary).id
     end
   end
 end

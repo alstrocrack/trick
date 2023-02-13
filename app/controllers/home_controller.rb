@@ -5,7 +5,11 @@ class HomeController < ApplicationController
   before_action :fetch_user_session
 
   def index
-    @requests = Request.where(user_id: @user_account.id).order(id: :desc).limit(5) if @user_account
+    if @user_account
+      @requests = Request.where(user_id: @user_account.id).order(id: :desc).limit(5)
+    elsif @guest_user_id
+      @requests = Request.where(guest_session_id: @guest_user_id).order(id: :desc).limit(5)
+    end
   end
 
   def add
@@ -18,8 +22,8 @@ class HomeController < ApplicationController
         request = Request.new(status_code: parameters[:status].to_i, from_address: parameters[:from], response_header: header, response_body: body)
         if @user_account
           request.user_id = @user_account
-        elsif @guest_user
-          request.guest_session_id = @guest_user
+        elsif @guest_user_id
+          request.guest_session_id = @guest_user_id
         else
           session[:guest] = SecureRandom.uuid
           guest_session = UserSession.new(value: session[:guest], status: UserSessionStatus::Temporary)
