@@ -19,4 +19,5 @@ end
 class UserSessionStatus
   Enable = 1
   Disable = 2
+  Temporary = 3
 end
