@@ -19,5 +19,5 @@ end
 class UserSessionStatus
   Enable = 1
   Disable = 2
-  Temporary = 3
+  Temporary = 3 # We can set it to "Disable" when you log in, but as long as the session continues, guest user can continue to use it without logging in.
 end

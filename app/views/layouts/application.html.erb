@@ -20,6 +20,9 @@
         <%- if @user_account %>
           <p class="me-3">user: <%= @user_account.email %></p>
         <%- end %>
+        <%- if  @guest_user_id && !Rails.env.production? %>
+          <p class="me-3">guest: <%= @guest_user_id %></p>
+        <%- end %>
         <ul class="list-unstyled trick-margin-bottom-none">
           <%- if @user_account %>
             <li><%= button_to "Logout", "/logout", method: :delete, class: "btn btn-outline-primary trick-center" %></li>
