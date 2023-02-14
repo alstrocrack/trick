@@ -61,4 +61,5 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
   config.include LoginSupport
+  config.include RegisterRequestSupport
 end

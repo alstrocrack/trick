@@ -12,13 +12,7 @@ RSpec.describe "Homes", type: :system do
 
   it "registers the request correctly" do
     visit root_path
-    expect {
-      fill_in "home[from]", with: "198.0.0.1"
-      fill_in "home[status]", with: 200
-      fill_in "home[header]", with: '{ "x-header-item": "abc" }'
-      fill_in "home[body]", with: '{ "body": "def" }'
-      click_button "Register Request"
-    }.to change(Request, :count).by(1)
+    expect { register_request_with("198.0.0.1", 200, '{ "x-header-item": "abc" }', '{ "body": "def" }') }.to change(Request, :count).by(1)
     expect(page).to have_content "The set requests"
     expect(page).to have_content "abc"
     expect(page).to have_content "def"
@@ -32,11 +26,7 @@ RSpec.describe "Homes", type: :system do
   context "as a guest user" do
     it "displays the guest-user-id after successful registration if the request is registered as a guest user" do
       visit root_path
-      fill_in "home[from]", with: "198.0.0.1"
-      fill_in "home[status]", with: 200
-      fill_in "home[header]", with: '{ "x-header-item": "abc" }'
-      fill_in "home[body]", with: '{ "body": "def" }'
-      click_button "Register Request"
+      register_request_with("198.0.0.1", 200, '{ "x-header-item": "abc" }', '{ "body": "def" }')
       expect(page).to have_content "guest: "
       expect(page).to_not have_content "user: "
     end
