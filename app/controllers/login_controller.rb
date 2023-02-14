@@ -1,7 +1,7 @@
 require "securerandom"
 
 class LoginController < ApplicationController
-  before_action :fetch_user_session, only: :logout
+  before_action :fetch_user_session, only: %i[index logout]
   def index
   end
 
@@ -13,7 +13,7 @@ class LoginController < ApplicationController
       raise ApplicationError.new(ErrorCode::E1006, ErrorMessage::InvalidPassword) unless user_account.authenticate?(parameters[:password])
       session[:user] = SecureRandom.uuid
       user_session = UserSession.new(value: session[:user], status: UserSessionStatus::Enable, user_id: user_account.id)
-      user_session.save!
+      session[:guest] = nil if user_session.save! && session[:guest]
       redirect_to "/"
     end
   end
