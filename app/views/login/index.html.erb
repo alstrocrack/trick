@@ -1,28 +1,24 @@
 <div class="py-4">
-  <section class="mb-4">
-    <h2 class="fs-3 trick-title mb-4">Login</h2>
-    <p class="trick-desc">Please enter your email and password to login.</p>
-  </section>
+  <h2 class="fs-3 trick__title mb-4">Login</h2>
   <div class="mb-5">
-    <%= form_with url: "login", method: :post do |form| %>
+    <%= form_with url: "login", class: "trick__form", method: :post do |form| %>
       <div class="mb-3">
-        <div class="col-6 trick-width-center">
+        <div class="col-8 trick-width-center mb-3">
           <label for="email" class="form-label">Email</label>
           <input type="text" class="form-control" name="login[email]" id="email" placeholder="xxx@xxx.co.jp">
         </div>
-        <div class="col-6 trick-width-center">
+        <div class="col-8 trick-width-center">
           <label for="password" class="form-label">Password</label>
           <input type="password" class="form-control" name="login[password]" id="password">
         </div>
       </div>
-      
-      <button type="submit" class="btn btn-primary col-2 trick-x-center trick-width-center">Login</button>
+      <button type="submit" class="btn col-3 trick-x-center trick-width-center mt-5">Login</button>
     <% end %>
   </div>
-  <div class="trick-x-center">
-    <div class="border border-success border-3 rounded p-3 d-inline-block">
-      <p class="text-center mb-3">Register here if you haven't already.</p>
-      <button class="btn btn-outline-success trick-x-center trick-width-center">Register</button>
+  <div class="trick-x-center trick__RegisterLink">
+    <div class="trick__RegisterLink-modal rounded p-4 d-inline-block">
+      <p class="text-center mb-3 trick__RegisterLink-text fs-4">Register if you haven't already!</p>
+      <button class="btn trick__RegisterLink-button trick-x-center trick-width-center">Register</button>
     </div>
   </div>
 </div>

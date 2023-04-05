@@ -52,6 +52,7 @@ $common-red: #f83600;
 $common-yellow: #f9d423;
 $common-orange: #ffa500;
 $base-color: #19A7CE;
+$alert-color: #FEB139;
 $base-font: 'Asap', sans-serif;
 
 h1, h2, h3, h4, h5, h6, p {
@@ -195,4 +196,22 @@ h1, h2, h3, h4, h5, h6, p {
 .trick__footer {
   background-color: $base-color;
   color: #fff;
+}
+
+.trick__RegisterLink {
+  &-modal {
+    border: 3px solid $alert-color;
+  }
+  &-text {
+    color: $alert-color;
+    font-family: $base-font;
+  }
+  &-button {
+    border: 1px solid $alert-color !important;
+    color: $alert-color !important;
+    &:hover {
+      background-color: $alert-color;
+      color: #fff !important;
+    }
+  }
 }
