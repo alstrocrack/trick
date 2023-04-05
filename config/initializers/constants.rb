@@ -9,7 +9,7 @@ class ErrorCode
 end
 class ErrorMessage
   Param = "Invalid params." #1001
-  From = "Invalid From." #1002
+  # From = "Invalid From." #1002
   LimitRequetsExceeds = "The maximum number of requests that can be registered has been reached." #1003
   LackOfParameters = "Please enter both email and password." #1004
   NonExistentUsers = "User not found." #1005

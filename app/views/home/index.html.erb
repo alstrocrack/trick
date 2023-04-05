@@ -7,8 +7,8 @@
     <%= form_with url: "/home/add", method: :post do |form| %>
       <div class="row mb-3">
         <div class="col-6">
-          <label for="from" class="form-label">From IP</label>
-          <input type="text" class="form-control" name="home[from]" id="from" placeholder="172.19.212.248">
+          <label for="name" class="form-label">Request Name</label>
+          <input type="text" class="form-control" name="home[name]" id="name" placeholder="trick">
         </div>
         <div class="col-6">
           <label for="status" class="form-label">Status Code</label>
@@ -36,8 +36,8 @@
           <div class="row">
             <div class="col-2">
               <dl class="mb-1">
-                <dt>From</dt>
-                <dd><%= request.from_address %></dd>
+                <dt>Name</dt>
+                <dd><%= request.name %></dd>
               </dl>
               <dl class="mb-1">
                 <dt>Status Code</dt>
