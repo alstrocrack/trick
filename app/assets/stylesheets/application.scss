@@ -56,6 +56,8 @@ a {
 
 $base-color: #19A7CE;
 $alert-color: #FEB139;
+$guide-color: #1F8A70;
+
 $base-font: 'Asap', sans-serif;
 
 // common
@@ -183,6 +185,24 @@ $base-font: 'Asap', sans-serif;
     color: $alert-color !important;
     &:hover {
       background-color: $alert-color;
+      color: #fff !important;
+    }
+  }
+}
+
+.trick__LoginLink {
+  &-modal {
+    border: 3px solid $guide-color;
+  }
+  &-text {
+    color: $guide-color;
+    font-family: $base-font;
+  }
+  &-button {
+    border: 1px solid $guide-color !important;
+    color: $guide-color !important;
+    &:hover {
+      background-color: $guide-color;
       color: #fff !important;
     }
   }
