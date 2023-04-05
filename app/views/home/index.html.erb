@@ -1,10 +1,7 @@
 <div class="py-4">
-  <section class="mb-4">
-    <h2 class="fs-3 trick-title mb-4">Enter Response Setting</h2>
-    <p class="trick-desc">When an HTTP request is sent from an IP address specified in From IP, a dummy request is returned according to the following settings.</p>
-  </section>
-  <div class="mb-5">
-    <%= form_with url: "/home/add", method: :post do |form| %>
+  <section class="trick__setting">
+    <h3 class="fs-3 trick__title mb-4">Response Setting</h3>
+    <%= form_with url: "/home/add", class: "trick__form", method: :post do |form| %>
       <div class="row mb-3">
         <div class="col-6">
           <label for="name" class="form-label">Request Name</label>
@@ -23,16 +20,15 @@
         <label for="body" class="form-label">Body Json</label>
         <textarea type="text" class="form-control" name="home[body]" id="body" style="height: 100px" placeholder='{ "data": "ghijkl" }'></textarea>
       </div>
-
-      <button type="submit" class="btn btn-primary col-2">Register Request</button>
+      <button type="submit" class="btn col-12 p-2 fs-5">Register Request</button>
     <% end %>
-  </div>
+  </section>
   <%- if @requests %>
-    <div class="mt-5">
-      <p class="fs-3 trick-title mb-4">The set requests</p>
+    <section>
+      <h3 class="fs-3 trick__title mb-4">The Set Requests</h3>
       <%- @requests.each_with_index do |request, index| %>
         <div class="mb-2 border border-light border-3 rounded p-4">
-          <p class="trick-number mb-3"><%= format("%02d", index + 1) %></p>
+          <p class="trick__number mb-3"><%= format("%02d", index + 1) %></p>
           <div class="row">
             <div class="col-2">
               <dl class="mb-1">
@@ -59,6 +55,6 @@
           </div>
         </div>
       <%- end %>
-    </div>
+    </section>
   <%- end %>
 </div>

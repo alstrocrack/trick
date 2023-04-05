@@ -14,6 +14,24 @@
  *= require_self
  */
 
+
+// Reset CSS
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+a {
+  text-decoration: none !important;
+  color: #000;
+}
+
+// mixin
 @mixin center {
   display: flex !important;
   justify-content: center !important;
@@ -33,6 +51,8 @@
 $common-red: #f83600;
 $common-yellow: #f9d423;
 $common-orange: #ffa500;
+$base-color: #19A7CE;
+$base-font: 'Asap', sans-serif;
 
 h1, h2, h3, h4, h5, h6, p {
   font-family: sans-serif;
@@ -40,18 +60,36 @@ h1, h2, h3, h4, h5, h6, p {
 }
 
 // common
-.trick-center {
+.trick__center {
   @include center;
 }
 
-.trick-title {
-  @include center;
-  padding: 1rem 2rem;
-  color: #fff;
-  border-radius: 10px;
-  background-image: -webkit-gradient(linear, left top, right top, from($common-red), to($common-yellow));
-  background-image: -webkit-linear-gradient(left, $common-red 0%, $common-yellow 100%);
-  background-image: linear-gradient(to right, $common-red 0%, $common-yellow 100%);
+.trick__title {
+  font-family: $base-font;
+  color: $base-color;
+  padding-left: 1rem;
+  border-left: 0.5rem solid $base-color;
+}
+
+.trick__form {
+  label {
+    font-size: 1.2rem;
+    color: $base-color;
+    font-weight: 600;
+  }
+  input, textarea {
+    border: 3px solid $base-color;
+  }
+  button {
+    background-color: $base-color;
+    border: 2px solid $base-color;
+    color: #fff;
+    font-weight: 600;
+    &:hover {
+      background-color: #fff;
+      color: $base-color;
+    }
+  }
 }
 
 .trick-subtitle {
@@ -80,14 +118,15 @@ h1, h2, h3, h4, h5, h6, p {
   margin-bottom: 0;
 }
 
-.trick-number {
+.trick__number {
   @include center;
   color: white;
+  font-weight: 600;
   padding: 0.5rem 0.5rem;
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 50%;
-  background-color: $common-orange;
+  background-color: $base-color;
 }
 
 .trick-width-center {
@@ -99,10 +138,48 @@ h1, h2, h3, h4, h5, h6, p {
 }
 
 // Home
-.trick-service-title {
-  text-decoration: none;
-  color: inherit;
-  &:hover {
-    color: inherit;
+.trick__header {
+  background-color: $base-color;
+  padding: 1.5rem;
+}
+
+.trick__title {
+  &-link {
+    font-family: $base-font;
+    &:hover {
+      color: #fff;
+    }
   }
+  &-sub {
+    font-family: $base-font;
+  }
+}
+
+.trick__session {
+  @include center;
+  &:hover {
+    color: $base-color !important;
+  }
+}
+
+.trick__user {
+  &-icon {
+    width: 2rem;
+    .st0{
+      fill:#4B4B4B;
+    }
+  }
+  &-name {
+    color: #fff;
+    font-family: $base-font;
+  }
+}
+
+.trick__session {
+  border-width: 2px !important;
+  font-family: $base-font;
+}
+
+.trick__setting {
+  margin-bottom: 5rem;
 }
