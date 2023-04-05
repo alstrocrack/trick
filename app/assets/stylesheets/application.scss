@@ -22,6 +22,11 @@
   box-sizing: border-box;
 }
 
+h1, h2, h3, h4, h5, h6, p {
+  font-family: sans-serif;
+  margin-bottom: 0 !important;
+}
+
 ul, ol {
   list-style: none;
 }
@@ -48,17 +53,10 @@ a {
 @mixin width-center {
   margin: 0 auto;
 }
-$common-red: #f83600;
-$common-yellow: #f9d423;
-$common-orange: #ffa500;
+
 $base-color: #19A7CE;
 $alert-color: #FEB139;
 $base-font: 'Asap', sans-serif;
-
-h1, h2, h3, h4, h5, h6, p {
-  font-family: sans-serif;
-  margin-bottom: 0 !important;
-}
 
 // common
 .trick__center {
@@ -97,32 +95,6 @@ h1, h2, h3, h4, h5, h6, p {
   &-msg {
     font-family: $base-font;
   }
-}
-
-.trick-subtitle {
-  label {
-    font-weight: 600;
-  }
-}
-
-.trick-desc {
-  position: relative;
-  padding: 0.5rem 0.5rem;
-  &:after {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 5px;
-    content: '';
-    background-image: -webkit-gradient(linear, left top, right top, from(#fa709a), to(#fee140));
-    background-image: -webkit-linear-gradient(left, #fa709a 0%, #fee140 100%);
-    background-image: linear-gradient(to right, #fa709a 0%, #fee140 100%);
-  }
-}
-
-.trick-margin-bottom-none {
-  margin-bottom: 0;
 }
 
 .trick-width-center {
