@@ -24,31 +24,27 @@
     <% end %>
   </section>
   <%- if @requests %>
-    <section>
+    <section class="trick__response">
       <h3 class="fs-3 trick__title mb-4">The Set Requests</h3>
-      <%- @requests.each_with_index do |request, index| %>
-        <div class="mb-2 border border-light border-3 rounded p-4">
-          <p class="trick__number mb-3"><%= format("%02d", index + 1) %></p>
-          <div class="row">
+      <%- @requests.each do |request| %>
+        <div class="mb-2 trick__response-unit rounded p-4">
+          <h4 class="trick__response-title"><%= request.name %></h4>
+          <div class="row trick__response-content">
             <div class="col-2">
               <dl class="mb-1">
-                <dt>Name</dt>
-                <dd><%= request.name %></dd>
-              </dl>
-              <dl class="mb-1">
-                <dt>Status Code</dt>
+                <dt class="fs-6">Status Code</dt>
                 <dd><%= request.status_code %></dd>
               </dl>
             </div>
             <div class="col-5">
               <dl>
-                <dt class="mb-1">Header</dt>
+                <dt class="fs-6">Header</dt>
                 <dd><%= request.response_header %></dd>
               </dl>
             </div>
             <div class="col-5">
               <dl>
-                <dt>Body</dt>
+                <dt class="fs-6">Body</dt>
                 <dd><%= request.response_body %></dd>
               </dl>
             </div>

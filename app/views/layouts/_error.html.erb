@@ -1,5 +1,5 @@
 <% flash.each do |message_type, message| %>
-  <div class="alert alert-<%= message_type %> d-flex align-items-center" role="alert">
+  <div class="alert alert-<%= message_type %> d-flex align-items-center trick__alert" role="alert">
     <% icon_type = (
       case message_type
       when "danger"; "exclamation-triangle-fill"
@@ -8,7 +8,7 @@
       end
     ) %>
     <svg class="bi flex-shrink-0 me-2" width="24" height="24"><use xlink:href="#<%= icon_type %>"/></svg>
-    <p><%= message %></p>
+    <p class="trick__alert-msg"><%= message %></p>
     <!-- definitional part -->
     <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
       <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">

@@ -92,6 +92,12 @@ h1, h2, h3, h4, h5, h6, p {
   }
 }
 
+.trick__alert {
+  &-msg {
+    font-family: $base-font;
+  }
+}
+
 .trick-subtitle {
   label {
     font-weight: 600;
@@ -116,17 +122,6 @@ h1, h2, h3, h4, h5, h6, p {
 
 .trick-margin-bottom-none {
   margin-bottom: 0;
-}
-
-.trick__number {
-  @include center;
-  color: white;
-  font-weight: 600;
-  padding: 0.5rem 0.5rem;
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: 50%;
-  background-color: $base-color;
 }
 
 .trick-width-center {
@@ -182,6 +177,19 @@ h1, h2, h3, h4, h5, h6, p {
 
 .trick__setting {
   margin-bottom: 5rem;
+}
+
+.trick__response {
+  &-unit {
+    border: 3px solid $base-color;
+  }
+  &-title {
+    color: $base-color;
+    font-family: $base-font;
+  }
+  &-content {
+    margin-top: 1rem !important;
+  }
 }
 
 .trick__footer {
