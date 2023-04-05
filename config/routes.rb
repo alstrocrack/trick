@@ -7,6 +7,9 @@ Rails.application.routes.draw do
   post "/login", controller: :login, action: :authenticate
   delete "/logout", controller: :login, action: :logout
 
+  # register
+  get "/register", controller: :register, action: :index
+
   # api
   post "/api/:email", controller: :api, action: :index
   get "/api/:email", controller: :api, action: :index

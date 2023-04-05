@@ -13,15 +13,14 @@ class HomeController < ApplicationController
   end
 
   def add
-    post_execute("/", "home", :status, :from, :header, :body) do |parameters|
+    post_execute("/", "home", :status, :name, :header, :body) do |parameters|
       ActiveRecord::Base.transaction do
-        raise ApplicationError.new(ErrorCode::E1002, ErrorMessage::From) if parameters[:from].blank?
         raise ApplicationError.new(ErrorCode::E1003, ErrorMessage::LimitRequetsExceeds) if @user_account && @user_account.is_exceed?
         header = parameters[:header].blank? ? nil : JSON.parse(parameters[:header])
         body = parameters[:body].blank? ? nil : JSON.parse(parameters[:body])
-        request = Request.new(status_code: parameters[:status].to_i, from_address: parameters[:from], response_header: header, response_body: body)
+        request = Request.new(status_code: parameters[:status].to_i, name: parameters[:name], response_header: header, response_body: body)
         if @user_account
-          request.user_id = @user_account
+          request.user_id = @user_account.id
         elsif @guest_user_id
           request.guest_session_id = @guest_user_id
         else
