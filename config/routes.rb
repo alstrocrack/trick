@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 
   # register
   get "/register", controller: :register, action: :index
+  post "/register", controller: :register, action: :register
 
   # api
   post "/api/:email", controller: :api, action: :index
