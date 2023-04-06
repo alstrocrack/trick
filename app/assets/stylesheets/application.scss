@@ -57,6 +57,7 @@ a {
 $base-color: #19A7CE;
 $alert-color: #FEB139;
 $guide-color: #1F8A70;
+$danger-color: #FF6464;
 
 $base-font: 'Asap', sans-serif;
 
@@ -129,6 +130,17 @@ $base-font: 'Asap', sans-serif;
   @include center;
   &:hover {
     color: $base-color !important;
+  }
+}
+
+.trick__delete {
+  background-color: $danger-color !important;
+  color: #fff !important;
+  border: 2px solid $danger-color !important;
+  &:hover {
+    background-color: #fff !important;
+    color: $danger-color !important;
+    border: 2px solid $danger-color !important;
   }
 }
 

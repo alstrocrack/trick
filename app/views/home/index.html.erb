@@ -49,6 +49,9 @@
               </dl>
             </div>
           </div>
+          <div>
+            <%= button_to "Delete", "/home/delete?id=#{request.id}", method: :delete, class: "btn trick__delete" %>
+          </div>
         </div>
       <%- end %>
     </section>

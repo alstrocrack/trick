@@ -34,4 +34,11 @@ class HomeController < ApplicationController
       end
     end
   end
+
+  def delete
+    request = @user_account ? Request.find_by(id: params[:id], user_id: @user_account.id) : Request.find_by(id: params[:id], guest_session_id: @guest_user_id)
+    request.destroy if request
+    flash[:success] = "Successfully deleted!"
+    redirect_to "/"
+  end
 end
