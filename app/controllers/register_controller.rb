@@ -1,6 +1,9 @@
 require "digest"
 
 class RegisterController < ApplicationController
+  before_action :fetch_user_session
+  before_action :validate_register_page
+
   def index
   end
 
@@ -18,5 +21,11 @@ class RegisterController < ApplicationController
       end
       redirect_to "/"
     end
+  end
+
+  private
+
+  def validate_register_page
+    redirect_to "/" if @user_account
   end
 end

@@ -2,6 +2,8 @@ require "securerandom"
 
 class LoginController < ApplicationController
   before_action :fetch_user_session, only: %i[index logout]
+  before_action :validate_login_page, only: %i[index logout]
+
   def index
   end
 
@@ -24,5 +26,11 @@ class LoginController < ApplicationController
     user_session.save!
     @user_account, session[:user] = nil
     redirect_to "/"
+  end
+
+  private
+
+  def validate_login_page
+    redirect_to "/" if @user_account
   end
 end
