@@ -66,6 +66,13 @@ $base-font: 'Asap', sans-serif;
   @include center;
 }
 
+.debug_dump {
+  background-color: #f0f0f0;
+  padding: 2rem;
+  color: #000;
+  margin: 3rem 0;
+}
+
 .trick__title {
   font-family: $base-font;
   color: $base-color;
