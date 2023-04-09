@@ -1,8 +1,8 @@
 require "securerandom"
 
 class LoginController < ApplicationController
-  before_action :fetch_user_session, only: %i[index logout]
-  before_action :validate_login_page, only: %i[index logout]
+  include GuestUser
+  before_action :validate_login_page, only: %i[index authenticate]
 
   def index
   end

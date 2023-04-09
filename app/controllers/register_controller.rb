@@ -1,7 +1,6 @@
 require "digest"
 
 class RegisterController < ApplicationController
-  before_action :fetch_user_session
   before_action :validate_register_page
 
   def index

@@ -2,20 +2,18 @@ require "json"
 require "securerandom"
 
 class HomeController < ApplicationController
-  before_action :fetch_user_session
-
   def index
     if @user_account
-      @requests = Request.where(user_id: @user_account.id).order(id: :desc).limit(5)
+      @requests = Request.where(user_id: @user_account.id).order(id: :desc)
     elsif @guest_user_id
-      @requests = Request.where(guest_session_id: @guest_user_id).order(id: :desc).limit(5)
+      @requests = Request.where(guest_session_id: @guest_user_id).order(id: :desc)
     end
   end
 
   def add
-    post_execute("/", "home", :status, :name, :header, :body) do |parameters|
+    post_execute("/", "home", :name, :status, :header, :body) do |parameters|
       ActiveRecord::Base.transaction do
-        raise ApplicationError.new(ErrorCode::E1003, ErrorMessage::LimitRequetsExceeds) if @user_account && @user_account.is_exceed?
+        raise ApplicationError.new(ErrorCode::E1003, ErrorMessage::LimitRequetsExceeds) if (@user_account && @user_account.is_exceed?) || (@guest_user_id && GuestUser.is_exceed?(@guest_user_id))
         header = parameters[:header].blank? ? nil : JSON.parse(parameters[:header])
         body = parameters[:body].blank? ? nil : JSON.parse(parameters[:body])
         request = Request.new(status_code: parameters[:status].to_i, name: parameters[:name], response_header: header, response_body: body)
