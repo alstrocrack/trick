@@ -1,11 +1,9 @@
 require "digest"
 
 class UserAccount < ApplicationRecord
-  MAX_REGISTER_REQUESTS = 5
-
   def is_exceed?
     requests = Request.where(user_id: self)
-    return requests.size >= MAX_REGISTER_REQUESTS
+    return requests.size >= RequestCounts::Max
   end
 
   def authenticate?(password)
