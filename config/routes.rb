@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   # home
   post "/home/add", controller: :home, action: :add
+  delete "/home/delete", controller: :home, action: :delete
 
   # login
   get "/login", controller: :login, action: :index
@@ -9,6 +10,7 @@ Rails.application.routes.draw do
 
   # register
   get "/register", controller: :register, action: :index
+  post "/register", controller: :register, action: :register
 
   # api
   post "/api/:email", controller: :api, action: :index

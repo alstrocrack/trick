@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  before_action :fetch_user_session
+
   # Provide strong parameter mechanism and exception handling when executing POST method
   # @param [String] fail_redirect_path Redirects to when processing fails
   # @param [String] group Specify a group of POST parameters
@@ -18,12 +20,15 @@ class ApplicationController < ActionController::Base
     redirect_to if fail_redirect_path
   end
 
+  private
+
   def fetch_user_session
     if session[:user]
       user_session = UserSession.find_by(value: session[:user], status: UserSessionStatus::Enable)
       @user_account = UserAccount.find_by(id: user_session.user_id) if user_session
     elsif session[:guest]
-      @guest_user_id = UserSession.find_by(value: session[:guest], status: UserSessionStatus::Temporary).id
+      # Since we don't need to register a record in the user_accounts table, we only need to get the id from the user_sessions table.
+      @guest_user_id = GuestUser.get_guest_user_id(session[:guest])
     end
   end
 end

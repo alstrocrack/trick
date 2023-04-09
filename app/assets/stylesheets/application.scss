@@ -57,12 +57,20 @@ a {
 $base-color: #19A7CE;
 $alert-color: #FEB139;
 $guide-color: #1F8A70;
+$danger-color: #FF6464;
 
 $base-font: 'Asap', sans-serif;
 
 // common
 .trick__center {
   @include center;
+}
+
+.debug_dump {
+  background-color: #f0f0f0;
+  padding: 2rem;
+  color: #000;
+  margin: 3rem 0;
 }
 
 .trick__title {
@@ -129,6 +137,17 @@ $base-font: 'Asap', sans-serif;
   @include center;
   &:hover {
     color: $base-color !important;
+  }
+}
+
+.trick__delete {
+  background-color: $danger-color !important;
+  color: #fff !important;
+  border: 2px solid $danger-color !important;
+  &:hover {
+    background-color: #fff !important;
+    color: $danger-color !important;
+    border: 2px solid $danger-color !important;
   }
 }
 

@@ -50,7 +50,7 @@
         <div>
           <%- if @user_account %>
             <%= button_to "Logout", "/logout", method: :delete, class: "btn btn-outline-light trick__session" %>
-          <%- else %>
+          <%- elsif !@user_account && request.path_info != "/login" && request.path_info != "/register" %>
             <%= link_to "Login", "/login", class: "btn btn-outline-light trick__session" %>
           <%- end %>
         </div>
@@ -59,6 +59,12 @@
     <main class="container p-4">
       <%= render partial: "layouts/alert" %>
       <%= yield %>
+
+      <%# FOR DEBUG %>
+      <%= debug(params) if Rails.env.development? %>
+      <%= debug(@user_account) if Rails.env.development? %>
+      <%= debug(@guest_user_id) if Rails.env.development? %>
+      
     </main>
     <footer class="trick__footer p-2 trick__center">
       <small>Copyright &copy; 2022 Fake All rights reserved.</small>
