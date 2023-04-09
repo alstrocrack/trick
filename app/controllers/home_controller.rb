@@ -14,6 +14,7 @@ class HomeController < ApplicationController
     post_execute("/", "home", :name, :status, :header, :body) do |parameters|
       ActiveRecord::Base.transaction do
         raise ApplicationError.new(ErrorCode::E1003, ErrorMessage::LimitRequetsExceeds) if (@user_account && @user_account.is_exceed?) || (@guest_user_id && GuestUser.is_exceed?(@guest_user_id))
+        raise ApplicationError.new(ErrorCode::E1009, ErrorMessage::InvalidRequestName) unless parameters[:name].present?
         header = parameters[:header].blank? ? nil : JSON.parse(parameters[:header])
         body = parameters[:body].blank? ? nil : JSON.parse(parameters[:body])
         request = Request.new(status_code: parameters[:status].to_i, name: parameters[:name], response_header: header, response_body: body)

@@ -7,6 +7,7 @@ module ErrorCode
   E1006 = 1006
   E1007 = 1007
   E1008 = 1008
+  E1009 = 1009
 end
 
 module ErrorMessage
@@ -18,6 +19,7 @@ module ErrorMessage
   InvalidPassword = "This is invalid password. Please check your password and try again." #1006
   InvalidUserSession = "Invalid Session." #1007
   UserName = "That name is already in use." #1008
+  InvalidRequestName = "That request name is invalid." #1009
 end
 
 module UserSessionStatus
