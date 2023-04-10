@@ -58,16 +58,24 @@
     </header>
     <main class="container p-4">
       <%= render partial: "layouts/alert" %>
-      <%= yield %>
-
-      <%# FOR DEBUG %>
-      <%= debug(params) if Rails.env.development? %>
-      <%= debug(@user_account) if Rails.env.development? %>
-      <%= debug(@guest_user_id) if Rails.env.development? %>
-      
+      <%= yield %>      
     </main>
     <footer class="trick__footer p-2 trick__center">
       <small>Copyright &copy; 2022 Fake All rights reserved.</small>
     </footer>
+    <%# FOR DEBUG %>
+    <div class="trick__debug">
+      <ul class="trick__debug-list">
+        <li class="trick__debug-el">
+          params value: <%= debug(params) if Rails.env.development? %>
+        </li>
+        <li class="trick__debug-el">
+          @user_account value: <%= debug(@user_account) if Rails.env.development? %>
+        </li>
+        <li class="trick__debug-el">
+          @guest_user_id value: <%= debug(@guest_user_id) if Rails.env.development? %>
+        </li>
+      </ul>
+    </div>
   </body>
 </html>
