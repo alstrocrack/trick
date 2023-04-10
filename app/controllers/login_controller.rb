@@ -16,6 +16,7 @@ class LoginController < ApplicationController
       session[:user] = SecureRandom.uuid
       user_session = UserSession.new(value: session[:user], status: UserSessionStatus::Enable, user_id: user_account.id)
       session[:guest] = nil if user_session.save! && session[:guest] # Destroy session if session[:guest] exists
+      flash[:success] = "Successfully login!"
       redirect_to "/"
     end
   end
@@ -26,7 +27,7 @@ class LoginController < ApplicationController
       user_session.status = UserSessionStatus::Disable
       user_session.save!
       @user_account, session[:user] = nil
-      flash[:success] = "Successfully Logout!"
+      flash[:success] = "Successfully logout!"
       redirect_to "/"
     end
   end
