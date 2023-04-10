@@ -8,6 +8,6 @@ class UserAccount < ApplicationRecord
 
   def authenticate?(password)
     password_hash = Digest::SHA256.hexdigest(password.strip)
-    self.password_hash == password_hash
+    return self.password_hash == password_hash
   end
 end

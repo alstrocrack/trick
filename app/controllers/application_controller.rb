@@ -25,8 +25,8 @@ class ApplicationController < ActionController::Base
   # @param [Array] *filters Specify which of the DELETE parameters are permitted
   # @note The redirect destination on successful processing is specified in the caller of the "delete_execute" method
   def delete_execute(fail_redirect_path, *filters)
-    debugger
-    parameters = params.permit(filters)
+    parameters = nil # If you don't write it like this, you will get an error that the filter is undefined
+    parameters = params.permit(filters) if filters.size > 0
     yield(parameters)
   rescue ApplicationError => e
     flash[:danger] = "E#{e.code}: #{e.msg}"
