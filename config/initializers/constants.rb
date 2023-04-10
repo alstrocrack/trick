@@ -8,6 +8,7 @@ module ErrorCode
   E1007 = 1007
   E1008 = 1008
   E1009 = 1009
+  E1010 = 1010
 end
 
 module ErrorMessage
@@ -20,6 +21,7 @@ module ErrorMessage
   InvalidUserSession = "Invalid Session." #1007
   UserName = "That name is already in use." #1008
   InvalidRequestName = "That request name is invalid." #1009
+  NotFoundRequest = "That Request was not found." #1010
 end
 
 module UserSessionStatus

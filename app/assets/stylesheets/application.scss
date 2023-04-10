@@ -66,11 +66,20 @@ $base-font: 'Asap', sans-serif;
   @include center;
 }
 
-.debug_dump {
+.trick__debug {
   background-color: #f0f0f0;
+  border-radius: 10px;
+  border: 1px solid #c0c0c0;
   padding: 2rem;
-  color: #000;
-  margin: 3rem 0;
+  max-width: 800px;
+  margin: 2rem auto;
+  &-list {
+    padding-left: 0;
+    margin-bottom: 0;
+  }
+  &-el:not(:last-child) {
+    margin-bottom: 1rem;
+  }
 }
 
 .trick__title {
