@@ -1,4 +1,3 @@
-require "json"
 require "securerandom"
 
 class HomeController < ApplicationController
