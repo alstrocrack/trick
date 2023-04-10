@@ -20,6 +20,22 @@ class ApplicationController < ActionController::Base
     redirect_to if fail_redirect_path
   end
 
+  # Provide strong parameter mechanism and exception handling when executing DELETE method
+  # @param [String] fail_redirect_path Redirects to when processing fails
+  # @param [Array] *filters Specify which of the DELETE parameters are permitted
+  # @note The redirect destination on successful processing is specified in the caller of the "delete_execute" method
+  def delete_execute(fail_redirect_path, *filters)
+    debugger
+    parameters = params.permit(filters)
+    yield(parameters)
+  rescue ApplicationError => e
+    flash[:danger] = "E#{e.code}: #{e.msg}"
+    redirect_to if fail_redirect_path
+  rescue => e
+    flash[:danger] = e
+    redirect_to if fail_redirect_path
+  end
+
   private
 
   def fetch_user_session
