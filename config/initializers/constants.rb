@@ -9,6 +9,7 @@ module ErrorCode
   E1008 = 1008
   E1009 = 1009
   E1010 = 1010
+  E1011 = 1011
 end
 
 module ErrorMessage
@@ -22,6 +23,7 @@ module ErrorMessage
   UserName = "That name is already in use." #1008
   InvalidRequestName = "That request name is invalid." #1009
   NotFoundRequest = "That Request was not found." #1010
+  LackOfParametersWithName = "Please enter your name, email address, and password all." #1011
 end
 
 module UserSessionStatus

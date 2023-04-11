@@ -5,7 +5,7 @@ class HomeController < ApplicationController
     if @user_account
       @requests = Request.where(user_id: @user_account.id).order(id: :desc)
     elsif @guest_user_id
-      @requests = Request.where(guest_session_id: @guest_user_id).order(id: :desc)
+      @requests = Request.where(guest_id: @guest_user_id).order(id: :desc)
     end
   end
 
@@ -24,12 +24,12 @@ class HomeController < ApplicationController
         if @user_account
           request.user_id = @user_account.id
         elsif @guest_user_id
-          request.guest_session_id = @guest_user_id
+          request.guest_id = @guest_user_id
         else
           session[:guest] = SecureRandom.uuid
           guest_session = UserSession.new(value: session[:guest], status: UserSessionStatus::Temporary)
           guest_session.save!
-          request.guest_session_id = guest_session.id
+          request.guest_id = guest_session.id
         end
         flash[:success] = "Successfully registerd" if request.save!
         redirect_to "/"
@@ -43,7 +43,7 @@ class HomeController < ApplicationController
       if @user_account
         request = Request.find_by(id: params[:id], user_id: @user_account.id)
       elsif @guest_user_id
-        request = Request.find_by(id: params[:id], guest_session_id: @guest_user_id)
+        request = Request.find_by(id: params[:id], guest_id: @guest_user_id)
       end
       raise ApplicationError.new(ErrorCode::E1010, ErrorMessage::NotFoundRequest) if request.nil?
       request.destroy!

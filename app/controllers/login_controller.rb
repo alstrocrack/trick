@@ -15,7 +15,8 @@ class LoginController < ApplicationController
       raise ApplicationError.new(ErrorCode::E1006, ErrorMessage::InvalidPassword) unless user_account.authenticate?(parameters[:password])
       session[:user] = SecureRandom.uuid
       user_session = UserSession.new(value: session[:user], status: UserSessionStatus::Enable, user_id: user_account.id)
-      session[:guest] = nil if user_session.save! && session[:guest] # Destroy session if session[:guest] exists
+      @user_account = user_account
+      session[:guest], @guest_user_id = nil if user_session.save! && session[:guest] # Destroy session if session[:guest] exists
       flash[:success] = "Successfully login!"
       redirect_to "/"
     end

@@ -8,7 +8,7 @@ module GuestUser
   end
 
   def self.get_requests(guest_session_id)
-    return Request.where(guest_session_id: guest_session_id)
+    return Request.where(guest_id: guest_session_id)
   end
 
   def self.is_exceed?(guest_session_id)
