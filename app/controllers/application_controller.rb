@@ -1,3 +1,5 @@
+require "securerandom"
+
 class ApplicationController < ActionController::Base
   before_action :fetch_user_session
 
@@ -34,6 +36,17 @@ class ApplicationController < ActionController::Base
   rescue => e
     flash[:danger] = e
     redirect_to if fail_redirect_path
+  end
+
+  # Discard everything related to guest_user when newly registered or logged in, and switch session to user_account
+  # @param [ActiveRecord::Relation] Records properly retrieved from the UserAccounts table
+  # @note Session management is also done by this method
+  def set_authenticated_user(authenticated_user_account)
+    @user_account = authenticated_user_account
+    session[:user] = SecureRandom.uuid
+    user_session = UserSession.new(value: session[:user], status: UserSessionStatus::Enable, user_id: @user_account.id)
+    user_session.save!
+    @guest_user_id, session[:guest] = nil if @guest_user_id || session[:guest] # Destroy session if session[:guest] exists
   end
 
   private

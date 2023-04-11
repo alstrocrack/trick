@@ -1,5 +1,3 @@
-require "securerandom"
-
 class LoginController < ApplicationController
   include GuestUser
   before_action :validate_login_page, only: %i[index authenticate]
@@ -13,9 +11,7 @@ class LoginController < ApplicationController
       user_account = UserAccount.find_by(email: parameters[:email])
       raise ApplicationError.new(ErrorCode::E1005, ErrorMessage::NonExistentUsers) if user_account.nil?
       raise ApplicationError.new(ErrorCode::E1006, ErrorMessage::InvalidPassword) unless user_account.authenticate?(parameters[:password])
-      session[:user] = SecureRandom.uuid
-      user_session = UserSession.new(value: session[:user], status: UserSessionStatus::Enable, user_id: user_account.id)
-      session[:guest] = nil if user_session.save! && session[:guest] # Destroy session if session[:guest] exists
+      set_authenticated_user(user_account)
       flash[:success] = "Successfully login!"
       redirect_to "/"
     end
@@ -23,6 +19,7 @@ class LoginController < ApplicationController
 
   def logout
     delete_execute("/") do
+      raise ApplicationError.new(ErrorCode::E1012, ErrorMessage::NotLoggedIn) unless @user_account
       user_session = UserSession.find_by(value: session[:user], status: UserSessionStatus::Enable, user_id: @user_account.id)
       user_session.status = UserSessionStatus::Disable
       user_session.save!
