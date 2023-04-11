@@ -10,6 +10,7 @@ module ErrorCode
   E1009 = 1009
   E1010 = 1010
   E1011 = 1011
+  E1012 = 1012
 end
 
 module ErrorMessage
@@ -24,6 +25,7 @@ module ErrorMessage
   InvalidRequestName = "That request name is invalid." #1009
   NotFoundRequest = "That Request was not found." #1010
   LackOfParametersWithName = "Please enter your name, email address, and password all." #1011
+  NotLoggedIn = "Not logged in yet." #1012
 end
 
 module UserSessionStatus

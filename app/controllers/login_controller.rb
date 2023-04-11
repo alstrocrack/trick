@@ -19,6 +19,7 @@ class LoginController < ApplicationController
 
   def logout
     delete_execute("/") do
+      raise ApplicationError.new(ErrorCode::E1012, ErrorMessage::NotLoggedIn) unless @user_account
       user_session = UserSession.find_by(value: session[:user], status: UserSessionStatus::Enable, user_id: @user_account.id)
       user_session.status = UserSessionStatus::Disable
       user_session.save!

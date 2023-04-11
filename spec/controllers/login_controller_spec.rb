@@ -14,6 +14,11 @@ RSpec.describe LoginController, type: :controller do
       post :authenticate, params: { email: "example@example.com", password: "example" }
       expect(response).to have_http_status "302"
     end
+
+    it "responds redirect when we send request to /logout" do
+      delete :logout
+      expect(response).to have_http_status "302"
+    end
   end
 
   context "as an logined user" do
@@ -26,6 +31,11 @@ RSpec.describe LoginController, type: :controller do
 
     it "responds redirect when we send request to /authenticate" do
       post :authenticate, params: { email: "example@example.com", password: "example" }
+      expect(response).to have_http_status "302"
+    end
+
+    it "responds redirect when we send request to /logout" do
+      delete :logout
       expect(response).to have_http_status "302"
     end
   end
