@@ -13,13 +13,13 @@ class ApplicationController < ActionController::Base
     yield(parameters)
   rescue ApplicationError => e
     flash[:danger] = "E#{e.code}: #{e.msg}"
-    redirect_to if fail_redirect_path
+    redirect_to fail_redirect_path if fail_redirect_path
   rescue JSON::ParserError => e
     flash[:danger] = e
-    redirect_to if fail_redirect_path
+    redirect_to fail_redirect_path if fail_redirect_path
   rescue => e
     flash[:danger] = e
-    redirect_to if fail_redirect_path
+    redirect_to fail_redirect_path if fail_redirect_path
   end
 
   # Provide strong parameter mechanism and exception handling when executing DELETE method
@@ -32,10 +32,10 @@ class ApplicationController < ActionController::Base
     yield(parameters)
   rescue ApplicationError => e
     flash[:danger] = "E#{e.code}: #{e.msg}"
-    redirect_to if fail_redirect_path
+    redirect_to fail_redirect_path if fail_redirect_path
   rescue => e
     flash[:danger] = e
-    redirect_to if fail_redirect_path
+    redirect_to fail_redirect_path if fail_redirect_path
   end
 
   # Discard everything related to guest_user when newly registered or logged in, and switch session to user_account

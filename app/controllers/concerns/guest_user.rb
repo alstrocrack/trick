@@ -12,6 +12,6 @@ module GuestUser
   end
 
   def self.is_exceed?(guest_session_id)
-    return self.get_requests(guest_session_id).count > RequestCounts::Max
+    return self.get_requests(guest_session_id).count >= RequestCounts::Max
   end
 end
