@@ -4,9 +4,9 @@ RSpec.describe "Homes", type: :system do
   it "logins successfully and displays user_account's name" do
     user_account = FactoryBot.create(:user_account, name: "example1")
     visit root_path
+    expect(page).to have_link("Login", href: "/login")
     expect(page).to_not have_content "example1"
     sign_in_with(user_account.email, "password")
-    visit root_path
     expect(page).to have_content "example1"
   end
 
@@ -14,6 +14,8 @@ RSpec.describe "Homes", type: :system do
     visit root_path
     expect { register_request_with("trick1", 200, '{ "x-header-item": "abc" }', '{ "body": "def" }') }.to change(Request, :count).by(1)
     expect(page).to have_content "The Set Requests"
+    expect(page).to have_content "trick1"
+    expect(page).to have_content "200"
     expect(page).to have_content "abc"
     expect(page).to have_content "def"
   end
