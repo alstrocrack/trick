@@ -1,11 +1,11 @@
 require "rails_helper"
 
 RSpec.describe "Homes", type: :system do
-  request_header = '{ "x-header-item": "abc" }'
-  request_body = '{ "body": "def" }'
+  let(:request_header) { '{ "x-header-item": "abc" }' }
+  let(:request_body) { '{ "body": "def" }' }
+  let(:user_account) { FactoryBot.create(:user_account, name: "example1") }
 
   it "logins successfully and displays user_account's name" do
-    user_account = FactoryBot.create(:user_account, name: "example1")
     visit root_path
     expect(page).to have_link("Login", href: "/login")
     expect(page).to_not have_content "example1"
@@ -32,6 +32,16 @@ RSpec.describe "Homes", type: :system do
   context "as a guest user" do
     it "does not register requests no more than 6 requests" do
       visit root_path
+      5.times { |n| register_request_with("trick#{n}", 200, request_header, request_body) }
+      expect { register_request_with("trick", 200, request_header, request_body) }.to_not change(Request, :count)
+      expect(page).to have_selector(".alert-danger")
+    end
+  end
+
+  context "as a logged in user" do
+    it "does not register requests no more than 6 requests" do
+      visit root_path
+      sign_in_with(user_account.email, "password")
       5.times { |n| register_request_with("trick#{n}", 200, request_header, request_body) }
       expect { register_request_with("trick", 200, request_header, request_body) }.to_not change(Request, :count)
       expect(page).to have_selector(".alert-danger")
