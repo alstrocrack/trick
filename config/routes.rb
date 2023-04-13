@@ -13,8 +13,10 @@ Rails.application.routes.draw do
   post "/register", controller: :register, action: :register
 
   # api
-  post "/api/:email", controller: :api, action: :index
-  get "/api/:email", controller: :api, action: :index
+  namespace :api do
+    get "/:user_name/:request_name", controller: :api, action: :get
+    post "/:user_name/:request_name", controller: :api, action: :post
+  end
 
   # root
   root to: "home#index"
