@@ -7,7 +7,6 @@ module Api
       if user =~ /\d+/
         request = Request.find_by(guest_id: user, name: request_name)
       else
-        print("here")
         request =
           Request
             .joins("JOIN user_accounts ON requests.user_id = user_accounts.id")
