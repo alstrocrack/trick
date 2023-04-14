@@ -13,8 +13,21 @@
         </div>
       </div>
       <div class="mb-3">
-        <label for="header" class="form-label">Header Json</label>
-        <textarea type="text" class="form-control" name="home[header]" id="header" style="height: 100px" placeholder='{ "X-DUMMY-KEY": "abcdef" }'></textarea>
+        <label class="trick__header-title">Header</label>
+        <div class="row">
+          <div class="col-6">
+            <label class="form-label trick__header-label">Key</label>
+            <input type="text" class="form-control trick__header-input" name="home[key1]" id="key1" placeholder="X-DUMMY-KEY"/>
+            <input type="text" class="form-control trick__header-input" name="home[key2]" id="key2" />
+            <input type="text" class="form-control trick__header-input" name="home[key3]" id="key3" />
+          </div>
+          <div class="col-6">
+            <label class="form-label trick__header-label">Value</label>
+            <input type="text" class="form-control trick__header-input" name="home[val1]" id="val1" placeholder="abcdef"/>
+            <input type="text" class="form-control trick__header-input" name="home[val2]" id="val2" />
+            <input type="text" class="form-control trick__header-input" name="home[val3]" id="val3" />
+          </div>
+        </div>
       </div>
       <div class="mb-3">
         <label for="body" class="form-label">Body Json</label>

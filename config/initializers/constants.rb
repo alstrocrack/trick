@@ -11,6 +11,8 @@ module ErrorCode
   E1010 = 1010
   E1011 = 1011
   E1012 = 1012
+  E1013 = 1013
+  E1014 = 1014
 end
 
 module ErrorMessage
@@ -26,6 +28,8 @@ module ErrorMessage
   NotFoundRequest = "That Request was not found." #1010
   LackOfParametersWithName = "Please enter your name, email address, and password all." #1011
   NotLoggedIn = "Not logged in yet." #1012
+  InvalidStatusCode = "Invalid status code." #1013
+  InvalidHeaderKey = "Invalid header key." #1013
 end
 
 module UserSessionStatus
