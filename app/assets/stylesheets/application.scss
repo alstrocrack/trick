@@ -53,6 +53,11 @@ a {
 @mixin width-center {
   margin: 0 auto;
 }
+@mixin headline {
+  font-size: 1.2rem;
+  color: $base-color;
+  font-weight: 600;
+}
 
 $base-color: #19A7CE;
 $alert-color: #FEB139;
@@ -91,9 +96,7 @@ $base-font: 'Asap', sans-serif;
 
 .trick__form {
   label {
-    font-size: 1.2rem;
-    color: $base-color;
-    font-weight: 600;
+    @include headline;
   }
   input, textarea {
     border: 3px solid $base-color;
@@ -106,6 +109,20 @@ $base-font: 'Asap', sans-serif;
     &:hover {
       background-color: #fff;
       color: $base-color;
+    }
+  }
+}
+
+.trick__header {
+  &-title {
+    @include headline;
+  }
+  &-label.form-label {
+    font-size: 1rem;
+  }
+  &-input {
+    &:not(:last-child) {
+      margin-bottom: 1rem;
     }
   }
 }

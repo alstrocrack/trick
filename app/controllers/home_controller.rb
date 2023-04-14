@@ -10,17 +10,14 @@ class HomeController < ApplicationController
   end
 
   def add
-    post_execute("/", "home", :name, :status, :header, :body) do |parameters|
+    post_execute("/", "home", :name, :key1, :key2, :key3, :val1, :val2, :val3, :body) do |parameters|
       ActiveRecord::Base.transaction do
-        raise ApplicationError.new(ErrorCode::E1003, ErrorMessage::LimitRequetsExceeds) if (@user_account && @user_account.is_exceed?) || (@guest_user_id && GuestUser.is_exceed?(@guest_user_id))
-        raise ApplicationError.new(ErrorCode::E1009, ErrorMessage::InvalidRequestName) unless parameters[:name].present?
-        request =
-          Request.new(
-            status_code: parameters[:status].to_i,
-            name: parameters[:name],
-            response_header: parameters[:header].present? ? parameters[:header] : nil,
-            response_body: parameters[:body].present? ? parameters[:body] : nil
-          )
+        if (@user_account && @user_account.is_exceed?) || (@guest_user_id && GuestUser.is_exceed?(@guest_user_id))
+          raise ApplicationError.new(ErrorCode::E1003, ErrorMessage::LimitRequetsExceeds)
+        end
+        formatted_header = Request.format_header(parameters[:key1], parameters[:key2], parameters[:key3], parameters[:val1], parameters[:val2], parameters[:val3])
+        request = Request.new(status_code: parameters[:status], name: parameters[:name], response_header: formatted_header, response_body: parameters[:body])
+        request.validate_request
         if @user_account
           request.user_id = @user_account.id
         elsif @guest_user_id
