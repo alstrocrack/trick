@@ -15,10 +15,8 @@ class HomeController < ApplicationController
         if (@user_account && @user_account.is_exceed?) || (@guest_user_id && GuestUser.is_exceed?(@guest_user_id))
           raise ApplicationError.new(ErrorCode::E1003, ErrorMessage::LimitRequetsExceeds)
         end
-        formatted_header =
-          Request.format_header(parameters[:key1], parameters[:key2], parameters[:key3], parameters[:val1], parameters[:val2], parameters[:val3])
-        request =
-          Request.new(status_code: parameters[:status], name: parameters[:name], response_header: formatted_header, response_body: parameters[:body])
+        formatted_header = Request.format_header(parameters[:key1], parameters[:key2], parameters[:key3], parameters[:val1], parameters[:val2], parameters[:val3])
+        request = Request.new(status_code: parameters[:status], name: parameters[:name], response_header: formatted_header, response_body: parameters[:body])
         request.validate_request
         if @user_account
           request.user_id = @user_account.id
