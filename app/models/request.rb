@@ -1,8 +1,6 @@
 class Request < ApplicationRecord
   def validate_request
-    if self.status_code.present? && self.status_code.to_s !~ /^[12345]\d{2}$/
-      raise ApplicationError.new(ErrorCode::E1013, ErrorMessage::InvalidStatusCode)
-    end
+    raise ApplicationError.new(ErrorCode::E1013, ErrorMessage::InvalidStatusCode) if self.status_code.present? && self.status_code.to_s !~ /^[12345]\d{2}$/
     raise ApplicationError.new(ErrorCode::E1009, ErrorMessage::InvalidRequestName) unless self.name.present?
     self.response_body = nil if self.response_body.blank?
   end
@@ -23,7 +21,7 @@ class Request < ApplicationRecord
     arr = []
     count.times do |n|
       next if args.slice(n).blank?
-      key, value = args.slice(n), args.slice(n + 3)
+      key, value = args.slice(n), args.slice(n + count)
       arr << "#{key}:#{value}"
     end
     return arr.join(",")
