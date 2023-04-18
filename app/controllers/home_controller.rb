@@ -28,7 +28,8 @@ class HomeController < ApplicationController
           guest_session.save!
           request.guest_id = guest_session.id
         end
-        flash[:success] = "Successfully registerd" if request.save!
+        request.save!
+        flash[:success] = "Successfully registerd"
         redirect_to "/"
       end
     end
