@@ -20,10 +20,6 @@ module Api
       render json: request.response_body, status: request.status.blank? ? :ok : request.status.to_i
     end
 
-    def post
-      render plain: "posted!"
-    end
-
     private
 
     def filter_paramter(*args)

@@ -15,7 +15,6 @@ Rails.application.routes.draw do
   # api
   namespace :api do
     get "/:user/:request_name", controller: :api, action: :get
-    post "/:user/:request_name", controller: :api, action: :post
   end
 
   # root
