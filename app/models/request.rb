@@ -12,7 +12,7 @@ class Request < ApplicationRecord
     count.times { |n| raise ApplicationError.new(ErrorCode::E1014, ErrorMessage::InvalidHeaderKey) if args[n + count].present? && args[n].blank? }
   end
 
-  # Returns the input key-value pairs in a formatted format
+  # Returns the input key-value pairs in a format
   # @param [String] examle: key1, key2, key3, val1, val2, val3
   # @return [String] example: "key1:val1, key2:val2, key3:val3"
   def self.format_header(*args)
@@ -25,5 +25,21 @@ class Request < ApplicationRecord
       arr << "#{key}:#{value}"
     end
     return arr.join(",")
+  end
+
+  # Returns the saved key-value pairs in a format
+  # @param [ActiveRecord::Relation] #<Request:0x00000000000000000>
+  # @return [Array] Array containing the hash
+  def return_header
+    key_value_pairs = []
+    header = self.response_header
+    return key_value_pairs if header.nil?
+    header
+      .split(",")
+      .each do |pair|
+        arr = pair.split(":")
+        key_value_pairs << { key: arr[0], value: arr[1] }
+      end
+    return key_value_pairs
   end
 end
