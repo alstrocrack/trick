@@ -1,8 +1,23 @@
 version: '3.9'
 services:
+  database:
+    container_name: "database"
+    image: mysql:8.0.33
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DATABASE_PASSWORD}
+      - MYSQL_DATABASE=${DATABASE_NAME}
+    ports:
+      - "${DATABASE_PORT}:3306"
+    volumes:
+      - trick-db:/var/lib/mysql
+
   rails_server:
     container_name: "rails-server"
     build: .
     ports:
       - 3000:3000
-
+    depends_on:
+      - database
+  
+volumes:
+  trick-db:
