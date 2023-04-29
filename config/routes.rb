@@ -15,7 +15,8 @@ Rails.application.routes.draw do
   # api
   namespace :api do
     get "/:user/:request_name", controller: :api, action: :get
-    get "/(*path)", controller: :api, action: :ng_request, constraints: { path: /.*/ }
+    match "/(*path)", controller: :options_request, action: :response_preflight_request, via: :options
+    match "/(*path)", controller: :api, action: :ng_request, constraints: { path: /.*/ }, via: %i[get post delete]
   end
 
   # root
