@@ -16,6 +16,7 @@ class RegisterController < ApplicationController
         new_user_account.save!
         Request.where(guest_id: @guest_user_id).update_all(user_id: new_user_account.id, guest_id: nil, updated_at: Time.now) if @guest_user_id
         set_authenticated_user(new_user_account)
+        SendAuthMailJob.perform_later(new_user_account.email, new_user_account.name)
         flash[:success] = "Successfully registerd!"
         redirect_to "/"
       end
