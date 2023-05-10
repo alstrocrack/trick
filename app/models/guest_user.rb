@@ -1,6 +1,8 @@
 class GuestUser
+  attr_reader :id
+
   def initialize(session_value)
-    return UserSession.find_by(value: guest_session, status: UserSessionStatus::Temporary)
+    @id = UserSession.find_by(value: session_value, status: UserSessionStatus::Temporary).id
   end
 
   def is_exceed?
