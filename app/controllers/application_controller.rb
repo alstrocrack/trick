@@ -57,7 +57,7 @@ class ApplicationController < ActionController::Base
       @user_account = UserAccount.find_by(id: user_session.user_id) if user_session
     elsif session[:guest]
       # Since we don't need to register a record in the user_accounts table, we only need to get the id from the user_sessions table.
-      @guest_user_id = GuestUser.get_guest_user_id(session[:guest])
+      @guest_user_id = GuestUser.new(session[:guest]).id
     end
   end
 end

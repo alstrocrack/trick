@@ -1,5 +1,4 @@
 class LoginController < ApplicationController
-  include GuestUser
   before_action :validate_login_page, only: %i[index authenticate]
 
   def index

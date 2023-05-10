@@ -12,7 +12,7 @@ class HomeController < ApplicationController
   def add
     post_execute("/", "home", :name, :key1, :key2, :key3, :val1, :val2, :val3, :body) do |parameters|
       ActiveRecord::Base.transaction do
-        if (@user_account && @user_account.is_exceed?) || (@guest_user_id && GuestUser.is_exceed?(@guest_user_id))
+        if (@user_account && @user_account.is_exceed?) || (session[:guest] && @guest_user_id && GuestUser.new(session[:guest]).is_exceed?)
           raise ApplicationError.new(ErrorCode::E1003, ErrorMessage::LimitRequetsExceeds)
         end
         formatted_header = Request.format_header(parameters[:key1], parameters[:key2], parameters[:key3], parameters[:val1], parameters[:val2], parameters[:val3])
