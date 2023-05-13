@@ -28,7 +28,7 @@
         </h2>
       </div>
       <nav class="d-flex align-items-center">
-        <%- if @user_account || @guest_user_id %>
+        <%- if @user_account || @guest_account %>
           <div class="me-3 trick__user d-flex align-items-center me-4">
             <svg class="trick__user-icon" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve">
               <g>
@@ -41,8 +41,8 @@
             <p class="trick__user-name ms-1">
               <%- if @user_account %>
                 <%= @user_account.name %>
-              <%- elsif  @guest_user_id %>
-                <%= @guest_user_id %>
+              <%- elsif  @guest_account %>
+                <%= @guest_account.id %>
               <%- end %>
             </p>
           </div>
@@ -73,7 +73,7 @@
           @user_account value: <%= debug(@user_account) if Rails.env.development? %>
         </li>
         <li class="trick__debug-el">
-          @guest_user_id value: <%= debug(@guest_user_id) if Rails.env.development? %>
+          @guest_account value: <%= debug(@guest_account) if Rails.env.development? %>
         </li>
       </ul>
     </div>

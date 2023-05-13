@@ -46,7 +46,7 @@ class ApplicationController < ActionController::Base
     session[:user] = SecureRandom.uuid
     user_session = UserSession.new(value: session[:user], status: UserSessionStatus::Enable, user_id: @user_account.id)
     user_session.save!
-    @guest_user_id, session[:guest] = nil if @guest_user_id || session[:guest] # Destroy session if session[:guest] exists
+    @guest_account, session[:guest] = nil if @guest_account || session[:guest] # Destroy session if session[:guest] exists
   end
 
   private
@@ -57,7 +57,7 @@ class ApplicationController < ActionController::Base
       @user_account = UserAccount.find_by(id: user_session.user_id) if user_session
     elsif session[:guest]
       # Since we don't need to register a record in the user_accounts table, we only need to get the id from the user_sessions table.
-      @guest_user_id = GuestUser.new(session[:guest]).id
+      @guest_account = GuestUser.new(session[:guest])
     end
   end
 end
