@@ -3,5 +3,5 @@ import "@hotwired/turbo-rails";
 import "controllers";
 
 // Modules to add on your own
-import { getXhr, postXhr } from "./ajax";
+import { getXhr, postXhr } from "./libs/ajax";
 import "./views/home";
