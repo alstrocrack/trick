@@ -2,8 +2,10 @@ require "securerandom"
 
 class HomeController < ApplicationController
   def index
+    @api_key = nil
     if @user_account
       @requests = Request.where(user_id: @user_account.id).order(id: :desc)
+      @api_key = @user_account.get_api_key
     elsif @guest_user_id
       @requests = Request.where(guest_id: @guest_user_id).order(id: :desc)
     end

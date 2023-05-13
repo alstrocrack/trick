@@ -10,4 +10,8 @@ class UserAccount < ApplicationRecord
     password_hash = Digest::SHA256.hexdigest(password.strip)
     return self.password_hash == password_hash
   end
+
+  def get_api_key
+    ApiKey.find_by(owner_id: ApiKey.get_user_api_key(self.id)).value
+  end
 end

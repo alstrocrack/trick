@@ -4,3 +4,4 @@ import "controllers";
 
 // Modules to add on your own
 import { getXhr, postXhr } from "./ajax";
+import "./views/home";
