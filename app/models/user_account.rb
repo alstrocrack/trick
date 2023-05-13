@@ -12,6 +12,6 @@ class UserAccount < ApplicationRecord
   end
 
   def get_api_key
-    ApiKey.find_by(owner_id: ApiKey.get_user_api_key(self.id)).value
+    return ApiKey.find_by(owner_id: ApiKey.get_user_api_key(self.id)).value
   end
 end

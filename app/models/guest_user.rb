@@ -8,4 +8,8 @@ class GuestUser
   def is_exceed?
     return Request.where(guest_id: self.id).count >= RequestCounts::Max
   end
+
+  def get_api_key
+    return ApiKey.find_by(owner_id: ApiKey.get_guest_api_key(@id)).value
+  end
 end

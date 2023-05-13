@@ -11,4 +11,8 @@ class ApiKey < ApplicationRecord
   def self.get_user_api_key(id)
     return USER_PREFIX + "-" + id.to_s
   end
+
+  def self.get_guest_api_key(id)
+    return GUEST_PREFIX + "-" + id.to_s
+  end
 end
