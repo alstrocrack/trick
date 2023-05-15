@@ -133,6 +133,11 @@ $base-font: 'Asap', sans-serif;
   }
 }
 
+.trick__userLink {
+  color: #fff;
+  text-decoration: none;
+}
+
 .trick-width-center {
   @include width-center;
 }

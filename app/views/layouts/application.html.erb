@@ -40,7 +40,7 @@
             </svg>
             <p class="trick__user-name ms-1">
               <%- if @user_account %>
-                <%= @user_account.name %>
+                <%= link_to @user_account.name, user_path(@user_account.id), class: "trick__userLink" %>
               <%- elsif  @guest_account %>
                 <%= @guest_account.id %>
               <%- end %>
