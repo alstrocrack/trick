@@ -12,6 +12,9 @@ Rails.application.routes.draw do
   get "/register", controller: :register, action: :index
   post "/register", controller: :register, action: :register
 
+  # user
+  get "/users/:id", controller: :users, action: :index, as: :user
+
   # api
   namespace :api do
     get "/:user/:request_name", controller: :api, action: :get
