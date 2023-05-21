@@ -2,12 +2,18 @@ FROM ruby:3.1.1
 
 RUN apt update && apt upgrade -y
 
-WORKDIR /usr/src/app
+RUN mkdir /app
+WORKDIR /app
 
-COPY Gemfile Gemfile.lock ./
+COPY Gemfile /app/Gemfile
+COPY Gemfile.lock /app/Gemfile.lock
 RUN bundle install
 
-COPY . .
+COPY . ./app
+
+COPY entrypoint.sh /usr/bin/
+RUN chmod +x /usr/bin/entrypoint.sh
+ENTRYPOINT [ "entrypoint.sh" ]
 EXPOSE 3000
 
 CMD ["rails", "server", "-b", "0.0.0.0"]
