@@ -1,7 +1,6 @@
-require "securerandom"
-
 class LoginController < ApplicationController
-  before_action :fetch_user_session, only: :logout
+  before_action :validate_login_page, only: %i[index authenticate]
+
   def index
   end
 
@@ -11,18 +10,27 @@ class LoginController < ApplicationController
       user_account = UserAccount.find_by(email: parameters[:email])
       raise ApplicationError.new(ErrorCode::E1005, ErrorMessage::NonExistentUsers) if user_account.nil?
       raise ApplicationError.new(ErrorCode::E1006, ErrorMessage::InvalidPassword) unless user_account.authenticate?(parameters[:password])
-      session[:user] = SecureRandom.uuid
-      user_session = UserSession.new(value: session[:user], status: UserSessionStatus::Enable, user_id: user_account.id)
-      user_session.save!
+      set_authenticated_user(user_account)
+      flash[:success] = "Successfully login!"
       redirect_to "/"
     end
   end
 
   def logout
-    user_session = UserSession.find_by(value: session[:user], status: UserSessionStatus::Enable, user_id: @user_account.id)
-    user_session.status = UserSessionStatus::Disable
-    user_session.save!
-    @user_account, session[:user] = nil
-    redirect_to "/"
+    delete_execute("/") do
+      raise ApplicationError.new(ErrorCode::E1012, ErrorMessage::NotLoggedIn) unless @user_account
+      user_session = UserSession.find_by(value: session[:user], status: UserSessionStatus::Enable, user_id: @user_account.id)
+      user_session.status = UserSessionStatus::Disable
+      user_session.save!
+      @user_account, session[:user] = nil
+      flash[:success] = "Successfully logout!"
+      redirect_to "/"
+    end
+  end
+
+  private
+
+  def validate_login_page
+    redirect_to "/" if @user_account
   end
 end

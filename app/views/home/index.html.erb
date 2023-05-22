@@ -1,14 +1,11 @@
 <div class="py-4">
-  <section class="mb-4">
-    <h2 class="fs-3 trick-title mb-4">Enter Response Setting</h2>
-    <p class="trick-desc">When an HTTP request is sent from an IP address specified in From IP, a dummy request is returned according to the following settings.</p>
-  </section>
-  <div class="mb-5">
-    <%= form_with url: "/home/add", method: :post do |form| %>
+  <section class="trick__setting">
+    <h3 class="fs-3 trick__title mb-4">Response Setting</h3>
+    <%= form_with url: "/home/add", class: "trick__form", method: :post do |form| %>
       <div class="row mb-3">
         <div class="col-6">
-          <label for="from" class="form-label">From IP</label>
-          <input type="text" class="form-control" name="home[from]" id="from" placeholder="172.19.212.248">
+          <label for="name" class="form-label">Request Name</label>
+          <input type="text" class="form-control" name="home[name]" id="name" placeholder="trick">
         </div>
         <div class="col-6">
           <label for="status" class="form-label">Status Code</label>
@@ -16,49 +13,61 @@
         </div>
       </div>
       <div class="mb-3">
-        <label for="header" class="form-label">Header Json</label>
-        <textarea type="text" class="form-control" name="home[header]" id="header" style="height: 100px" placeholder='{ "X-DUMMY-KEY": "abcdef" }'></textarea>
+        <label class="trick__header-title">Header</label>
+        <div class="row">
+          <div class="col-6">
+            <label class="form-label trick__header-label">Key</label>
+            <input type="text" class="form-control trick__header-input" name="home[key1]" id="key1" placeholder="X-DUMMY-KEY"/>
+            <input type="text" class="form-control trick__header-input" name="home[key2]" id="key2" />
+            <input type="text" class="form-control trick__header-input" name="home[key3]" id="key3" />
+          </div>
+          <div class="col-6">
+            <label class="form-label trick__header-label">Value</label>
+            <input type="text" class="form-control trick__header-input" name="home[val1]" id="val1" placeholder="abcdef"/>
+            <input type="text" class="form-control trick__header-input" name="home[val2]" id="val2" />
+            <input type="text" class="form-control trick__header-input" name="home[val3]" id="val3" />
+          </div>
+        </div>
       </div>
       <div class="mb-3">
         <label for="body" class="form-label">Body Json</label>
         <textarea type="text" class="form-control" name="home[body]" id="body" style="height: 100px" placeholder='{ "data": "ghijkl" }'></textarea>
       </div>
-
-      <button type="submit" class="btn btn-primary col-2">Register Request</button>
+      <button type="submit" class="btn col-12 p-2 fs-5">Register Request</button>
     <% end %>
-  </div>
+  </section>
   <%- if @requests %>
-    <div class="mt-5">
-      <p class="fs-3 trick-title mb-4">The set requests</p>
-      <%- @requests.each_with_index do |request, index| %>
-        <div class="mb-2 border border-light border-3 rounded p-4">
-          <p class="trick-number mb-3"><%= format("%02d", index + 1) %></p>
-          <div class="row">
+    <section class="trick__response">
+      <h3 class="fs-3 trick__title mb-4">The Set Requests</h3>
+      <p class="my-3">API KEY : <span class="trick__apiKey" id="trickAPIKEY" value="<%= @api_key %>"><%= @api_key %></span></p>
+      <%- @requests.each do |request| %>
+        <div class="mb-2 trick__response-unit rounded p-4">
+          <h4 class="trick__response-title"><%= request.name %></h4>
+          <div class="row trick__response-content">
             <div class="col-2">
               <dl class="mb-1">
-                <dt>From</dt>
-                <dd><%= request.from_address %></dd>
-              </dl>
-              <dl class="mb-1">
-                <dt>Status Code</dt>
+                <dt class="fs-6">Status Code</dt>
                 <dd><%= request.status_code %></dd>
               </dl>
             </div>
             <div class="col-5">
               <dl>
-                <dt class="mb-1">Header</dt>
+                <dt class="fs-6">Header</dt>
                 <dd><%= request.response_header %></dd>
               </dl>
             </div>
             <div class="col-5">
               <dl>
-                <dt>Body</dt>
+                <dt class="fs-6">Body</dt>
                 <dd><%= request.response_body %></dd>
               </dl>
             </div>
           </div>
+          <div>
+            <%= button_to "Delete", "/home/delete?id=#{request.id}", method: :delete, class: "btn trick__delete" %>
+          </div>
         </div>
       <%- end %>
-    </div>
+    </section>
   <%- end %>
 </div>

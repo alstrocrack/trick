@@ -1,38 +1,50 @@
 require "rails_helper"
 
 RSpec.describe "Homes", type: :system do
-  it "login successfully and display user_account's email" do
-    user_account = FactoryBot.create(:user_account, email: "example@example.com")
+  let(:request_header) { '{ "x-header-item": "abc" }' }
+  let(:request_body) { '{ "body": "def" }' }
+  let(:user_account) { FactoryBot.create(:user_account, name: "example1") }
 
+  it "logins successfully and displays user_account's name" do
     visit root_path
-    expect(page).to_not have_content "example@example.com"
-
+    expect(page).to have_link("Login", href: "/login")
+    expect(page).to_not have_content "example1"
     sign_in_with(user_account.email, "password")
+    expect(page).to have_content "example1"
+  end
+
+  it "registers the request correctly" do
     visit root_path
-
-    expect(page).to have_content "example@example.com"
+    expect { register_request_with("trick1", 200, request_header, request_body) }.to change(Request, :count).by(1)
+    expect(page).to have_content "The Set Requests"
+    expect(page).to have_content "trick1"
+    expect(page).to have_content "200"
+    expect(page).to have_content "abc"
+    expect(page).to have_content "def"
+    expect(page).to have_selector(".alert-success")
   end
 
-  context "as a registered user" do
-    #
+  it "does not display any request When the page is first opened" do
+    visit root_path
+    expect(page).to_not have_content "The set requests"
   end
 
-  context "as a guest" do
-    it "does not display any request" do
+  context "as a guest user" do
+    it "does not register requests no more than 6 requests" do
       visit root_path
-      expect(page).to_not have_content "The set requests"
+      5.times { |n| register_request_with("trick#{n}", 200, request_header, request_body) }
+      expect { register_request_with("trick", 200, request_header, request_body) }.to_not change(Request, :count)
+      expect(page).to have_selector(".alert-danger")
     end
+  end
 
-    it "adds a request" do
+  context "as a logged in user" do
+    it "does not register requests no more than 6 requests" do
       visit root_path
-      expect {
-        fill_in "home[from]", with: "198.0.0.1"
-        fill_in "home[status]", with: 200
-        fill_in "home[header]", with: '{ "x-header-item": "abc" }'
-        fill_in "home[body]", with: '{ "body": "def" }'
-
-        click_button "Register Request"
-      }.to change(Request, :count).by(1)
+      sign_in_with(user_account.email, "password")
+      5.times { |n| register_request_with("trick#{n}", 200, request_header, request_body) }
+      expect { register_request_with("trick", 200, request_header, request_body) }.to_not change(Request, :count)
+      expect(page).to have_selector(".alert-danger")
     end
   end
 end

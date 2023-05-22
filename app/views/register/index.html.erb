@@ -1,0 +1,28 @@
+<div class="py-4">
+  <h2 class="fs-3 trick__title mb-4">Register</h2>
+  <div class="mb-5">
+    <%= form_with url: "register", class: "trick__form", method: :post do |form| %>
+      <div class="mb-3">
+        <div class="col-8 trick-width-center mb-3">
+          <label for="name" class="form-label">Name</label>
+          <input type="text" class="form-control" name="register[name]" id="name" placeholder="tricker">
+        </div>
+        <div class="col-8 trick-width-center mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input type="text" class="form-control" name="register[email]" id="email" placeholder="xxx@xxx.co.jp">
+        </div>
+        <div class="col-8 trick-width-center">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" class="form-control" name="register[password]" id="password">
+        </div>
+      </div>
+      <button type="submit" class="btn col-3 trick-x-center trick-width-center mt-5">Register</button>
+    <% end %>
+  </div>
+  <div class="trick-x-center trick__LoginLink">
+    <div class="trick__LoginLink-modal rounded p-4 d-inline-block">
+      <p class="text-center mb-3 trick__LoginLink-text fs-4">Login if you are already registered!</p>
+      <%= link_to "Login", "/login", class: "btn trick__LoginLink-button trick-x-center trick-width-center" %>
+    </div>
+  </div>
+</div>
