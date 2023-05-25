@@ -12,8 +12,9 @@ class HomeController < ApplicationController
     end
   end
 
-  def add
-    post_execute("/", "home", :name, :key1, :key2, :key3, :val1, :val2, :val3, :body) do |parameters|
+  def create
+    post_execute("/", "home", :name, :key1, :key2, :key3, :val1, :val2, :val3, :status, :body) do |parameters|
+      debugger
       ActiveRecord::Base.transaction do
         raise ApplicationError.new(ErrorCode::E1003, ErrorMessage::LimitRequetsExceeds) if (@user_account && @user_account.is_exceed?) || (@guest_account && @guest_account.is_exceed?)
         formatted_header = Request.format_header(parameters[:key1], parameters[:key2], parameters[:key3], parameters[:val1], parameters[:val2], parameters[:val3])
@@ -37,8 +38,8 @@ class HomeController < ApplicationController
     end
   end
 
-  def delete
-    delete_execute("/", :id) do |parameters|
+  def destroy
+    destroy_execute("/", :id) do |parameters|
       request = nil
       if @user_account
         request = Request.find_by(id: params[:id], user_id: @user_account.id)

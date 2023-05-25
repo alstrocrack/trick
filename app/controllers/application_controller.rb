@@ -25,8 +25,8 @@ class ApplicationController < ActionController::Base
   # Provide strong parameter mechanism and exception handling when executing DELETE method
   # @param [String] fail_redirect_path Redirects to when processing fails
   # @param [Array] *filters Specify which of the DELETE parameters are permitted
-  # @note The redirect destination on successful processing is specified in the caller of the "delete_execute" method
-  def delete_execute(fail_redirect_path, *filters)
+  # @note The redirect destination on successful processing is specified in the caller of the "destroy_execute" method
+  def destroy_execute(fail_redirect_path, *filters)
     parameters = nil # If you don't write it like this, you will get an error that the filter is undefined
     parameters = params.permit(filters) if filters.size > 0
     yield(parameters)

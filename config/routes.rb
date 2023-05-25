@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
   # home
-  post "/home/add", controller: :home, action: :add
-  delete "/home/delete", controller: :home, action: :delete
+  resources :home, only: %i[create destroy]
 
   # login
   get "/login", controller: :login, action: :index
