@@ -3,17 +3,12 @@ Rails.application.routes.draw do
   resources :home, only: %i[create destroy]
 
   # login
-  resources :login do
-    member { post :create }
-    collection do
-      get :index
-      delete :destroy
-    end
+  resources :login, only: %i[index create] do
+    collection { delete :destroy }
   end
 
   # register
-  get "/register", controller: :register, action: :index
-  post "/register", controller: :register, action: :register
+  resources :register, only: %i[index create]
 
   # user
   get "/users/:id", controller: :users, action: :index, as: :user

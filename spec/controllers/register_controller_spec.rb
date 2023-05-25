@@ -10,8 +10,8 @@ RSpec.describe RegisterController, type: :controller do
       expect(response).to have_http_status "200"
     end
 
-    it "responds redirect when we send request to /register" do
-      post :register, params: { name: "example_user", email: "example@example.com", password: "example" }
+    it "responds redirect when we send request to /create" do
+      post :create, params: { name: "example_user", email: "example@example.com", password: "example" }
       expect(response).to have_http_status "302"
     end
   end
@@ -19,13 +19,13 @@ RSpec.describe RegisterController, type: :controller do
   context "as an logined user" do
     before { session[:user] = user_session.value }
 
-    it "responds redirect when we visit /register page" do
+    it "responds redirect when we visit /create page" do
       get :index
       expect(response).to have_http_status "302"
     end
 
-    it "responds redirect when we send request to /register" do
-      post :register, params: { email: "example@example.com", password: "example" }
+    it "responds redirect when we send request to /create" do
+      post :create, params: { email: "example@example.com", password: "example" }
       expect(response).to have_http_status "302"
     end
   end

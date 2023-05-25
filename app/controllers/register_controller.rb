@@ -6,10 +6,12 @@ class RegisterController < ApplicationController
   def index
   end
 
-  def register
+  def create
     ActiveRecord::Base.transaction do
       post_execute("/register", "register", :name, :email, :password) do |parameters|
-        raise ApplicationError.new(ErrorCode::E1011, ErrorMessage::LackOfParametersWithName) if parameters[:name].blank? || parameters[:email].blank? || parameters[:password].blank?
+        if parameters[:name].blank? || parameters[:email].blank? || parameters[:password].blank?
+          raise ApplicationError.new(ErrorCode::E1011, ErrorMessage::LackOfParametersWithName)
+        end
         raise ApplicationError.new(ErrorCode::E1002, ErrorMessage::Email) if UserAccount.find_by(email: parameters[:email])
         raise ApplicationError.new(ErrorCode::E1008, ErrorMessage::UserName) if UserAccount.find_by(name: parameters[:name])
         new_user_account = UserAccount.new(name: parameters[:name], email: parameters[:email], password_hash: Digest::SHA256.hexdigest(parameters[:password].strip))
