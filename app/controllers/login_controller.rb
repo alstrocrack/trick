@@ -4,7 +4,7 @@ class LoginController < ApplicationController
   def index
   end
 
-  def authenticate
+  def create
     post_execute("/login", "login", :email, :password) do |parameters|
       raise ApplicationError.new(ErrorCode::E1004, ErrorMessage::LackOfParameters) if parameters[:email].blank? || parameters[:password].blank?
       user_account = UserAccount.find_by(email: parameters[:email])
@@ -16,13 +16,14 @@ class LoginController < ApplicationController
     end
   end
 
-  def logout
+  def destroy
     destroy_execute("/") do
       raise ApplicationError.new(ErrorCode::E1012, ErrorMessage::NotLoggedIn) unless @user_account
       user_session = UserSession.find_by(value: session[:user], status: UserSessionStatus::Enable, user_id: @user_account.id)
       user_session.status = UserSessionStatus::Disable
       user_session.save!
       @user_account, session[:user] = nil
+      session.delete(:user)
       flash[:success] = "Successfully logout!"
       redirect_to "/"
     end

@@ -10,13 +10,13 @@ RSpec.describe LoginController, type: :controller do
       expect(response).to have_http_status "200"
     end
 
-    it "responds redirect when we send request to /authenticate" do
-      post :authenticate, params: { email: "example@example.com", password: "example" }
+    it "responds redirect when we send request to /create" do
+      post :create, params: { email: "example@example.com", password: "example" }
       expect(response).to have_http_status "302"
     end
 
-    it "responds redirect when we send request to /logout" do
-      delete :logout
+    it "responds redirect when we send request to /destroy" do
+      delete :destroy
       expect(response).to have_http_status "302"
     end
   end
@@ -29,13 +29,13 @@ RSpec.describe LoginController, type: :controller do
       expect(response).to have_http_status "302"
     end
 
-    it "responds redirect when we send request to /authenticate" do
-      post :authenticate, params: { email: "example@example.com", password: "example" }
+    it "responds redirect when we send request to /create" do
+      post :create, params: { email: "example@example.com", password: "example" }
       expect(response).to have_http_status "302"
     end
 
-    it "responds redirect when we send request to /logout" do
-      delete :logout
+    it "responds redirect when we send request to /destroy" do
+      delete :destroy
       expect(response).to have_http_status "302"
     end
   end

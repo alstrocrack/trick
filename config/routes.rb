@@ -3,9 +3,13 @@ Rails.application.routes.draw do
   resources :home, only: %i[create destroy]
 
   # login
-  get "/login", controller: :login, action: :index
-  post "/login", controller: :login, action: :authenticate
-  delete "/logout", controller: :login, action: :logout
+  resources :login do
+    member { post :create }
+    collection do
+      get :index
+      delete :destroy
+    end
+  end
 
   # register
   get "/register", controller: :register, action: :index
