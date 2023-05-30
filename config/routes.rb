@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   resources :register, only: %i[index create]
 
   # user
-  get "/users/:id", controller: :users, action: :index, as: :user
+  resources :users, only: :show
 
   # api
   namespace :api do

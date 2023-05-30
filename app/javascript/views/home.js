@@ -1,9 +1,11 @@
+const copyBtn = document.getElementById("trickAPIKEYCopy");
 const apiKey = document.getElementById("trickAPIKEY");
-if (apiKey) {
-  apiKey.addEventListener("click", (event) => {
-    navigator.clipboard.writeText(event.target.innerText).then(
+
+if (apiKey && copyBtn) {
+  copyBtn.addEventListener("click", () => {
+    navigator.clipboard.writeText(apiKey.textContent).then(
       () => {
-        alert("This api key copied!");
+        copyBtn.textContent = "copied!";
       },
       () => {
         alert("Failed to copy api key...");

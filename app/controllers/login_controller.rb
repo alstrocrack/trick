@@ -22,7 +22,7 @@ class LoginController < ApplicationController
       user_session = UserSession.find_by(value: session[:user], status: UserSessionStatus::Enable, user_id: @user_account.id)
       user_session.status = UserSessionStatus::Disable
       user_session.save!
-      @user_account, session[:user] = nil
+      @user_account, session[:user] = nil, nil
       session.delete(:user)
       flash[:success] = "Successfully logout!"
       redirect_to "/"

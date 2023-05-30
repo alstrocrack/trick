@@ -2,6 +2,10 @@ class Request < ApplicationRecord
   def validate_request
     raise ApplicationError.new(ErrorCode::E1013, ErrorMessage::InvalidStatusCode) if self.status_code.present? && self.status_code.to_s !~ /^[12345]\d{2}$/
     raise ApplicationError.new(ErrorCode::E1009, ErrorMessage::InvalidRequestName) unless self.name.present?
+  end
+
+  # Adjust response_body for nil, "" or " " to nil
+  def adjust_body
     self.response_body = nil if self.response_body.blank?
   end
 
