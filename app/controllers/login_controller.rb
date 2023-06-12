@@ -7,7 +7,7 @@ class LoginController < ApplicationController
   def create
     post_execute("/login", "login", :email, :password) do |parameters|
       raise ApplicationError.new(ErrorCode::E1004, ErrorMessage::LackOfParameters) if parameters[:email].blank? || parameters[:password].blank?
-      user_account = UserAccount.find_by(email: parameters[:email])
+      user_account = UserAccount.find_by(email: parameters[:email].downcase)
       raise ApplicationError.new(ErrorCode::E1005, ErrorMessage::NonExistentUsers) if user_account.nil?
       raise ApplicationError.new(ErrorCode::E1006, ErrorMessage::InvalidPassword) unless user_account.authenticate?(parameters[:password])
       set_authenticated_user(user_account)
