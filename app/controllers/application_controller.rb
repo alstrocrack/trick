@@ -62,7 +62,7 @@ class ApplicationController < ActionController::Base
       @user_account ||= UserAccount.find_by(id: session[:user_id]) if user_session.authenticate?(session[:user_token])
     elsif session[:guest_id] && session[:guest_token]
       # Since we don't need to register a record in the user_accounts table, we only need to get the id from the user_sessions table.
-      guest_session = UserSession.find_by(id: session[:guest_id], status: UserSessionStatus::Enable)
+      guest_session = UserSession.find_by(id: session[:guest_id], status: UserSessionStatus::Temporary)
       @guest_account ||= GuestUser.new(session[:guest_id]) if guest_session.authenticate?(session[:guest_token])
     end
   end

@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   # login
   resources :login, only: %i[index create] do
-    collection { delete :destroy }
+    collection { delete :destroy, as: "logout" }
   end
 
   # register

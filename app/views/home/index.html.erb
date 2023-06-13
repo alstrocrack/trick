@@ -1,7 +1,7 @@
 <div class="py-4">
   <section class="trick__setting">
     <h3 class="fs-3 trick__title mb-4">Response Setting</h3>
-    <%= form_with url: "/home/add", class: "trick__form", method: :post do |form| %>
+    <%= form_with url: "/home", class: "trick__form", method: :post do |form| %>
       <div class="row mb-3">
         <div class="col-6">
           <label for="name" class="form-label">Request Name</label>
@@ -68,7 +68,7 @@
             </div>
           </div>
           <div>
-            <%= button_to "Delete", "/home/delete?id=#{request.id}", method: :delete, class: "btn trick__delete" %>
+            <%= button_to "Delete", home_path(request.id), method: :delete, class: "btn trick__delete" %>
           </div>
         </div>
       <%- end %>

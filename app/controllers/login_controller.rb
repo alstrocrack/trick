@@ -19,11 +19,14 @@ class LoginController < ApplicationController
   def destroy
     destroy_execute("/") do
       raise ApplicationError.new(ErrorCode::E1012, ErrorMessage::NotLoggedIn) unless @user_account
-      user_session = UserSession.find_by(value: session[:user], status: UserSessionStatus::Enable, user_id: @user_account.id)
+      user_session = UserSession.find_by(status: UserSessionStatus::Enable, user_id: @user_account.id)
       user_session.status = UserSessionStatus::Disable
       user_session.save!
-      @user_account, session[:user] = nil, nil
-      session.delete(:user)
+      @user_account = nil
+      session[:user_id] = nil
+      session[:user_token] = nil
+      session.delete(:user_id)
+      session.delete(:user_token)
       flash[:success] = "Successfully logout!"
       redirect_to "/"
     end
