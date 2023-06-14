@@ -1,5 +1,5 @@
 class UserSession < ApplicationRecord
   def authenticate?(token)
-    return BCrypt::Password.new(self.session_digest).is_password?(token)
+    BCrypt::Password.new(session_digest).is_password?(token)
   end
 end
