@@ -17,8 +17,8 @@ class UserAccount < ApplicationRecord
   end
 
   # NOTE: Mainly used to respond to API inquiries
-  def self.get_api_key(user)
-    owner_id = ApiKey.get_user_api_key(UserAccount.find_by(name: user).id)
+  def self.get_api_key(user_name)
+    owner_id = ApiKey.get_user_api_key(UserAccount.find_by(name: user_name).id)
     return ApiKey.find_by(owner_id: owner_id).value
   end
 end

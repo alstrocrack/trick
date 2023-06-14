@@ -2,6 +2,7 @@ require "rails_helper"
 
 RSpec.describe UserAccount, type: :model do
   let(:user) { create(:user_account) }
+  let!(:api_key) { create(:api_key, owner_id: "user-#{user.id}") }
 
   describe "register multiple requests" do
     subject { user.is_exceed? }
@@ -33,5 +34,13 @@ RSpec.describe UserAccount, type: :model do
 
       it { is_expected.to be(false) }
     end
+  end
+
+  it "gets api_key by instance method" do
+    expect(user.get_api_key).to eq(api_key.value)
+  end
+
+  it "gets api_key by class method" do
+    expect(UserAccount.get_api_key(user.name)).to eq(api_key.value)
   end
 end

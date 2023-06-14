@@ -10,3 +10,5 @@ AllCops:
 
 RSpec/Rails/InferredSpecType:
   Enabled: false
+RSpec/DescribedClass:
+  Enabled: false
