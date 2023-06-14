@@ -7,3 +7,6 @@ require:
 
 AllCops:
   NewCops: enable
+
+RSpec/Rails/InferredSpecType:
+  Enabled: false
