@@ -8,15 +8,15 @@ RSpec.describe UserAccount, type: :model do
     subject { user.is_exceed? }
 
     context "when user_account have four requests" do
-      before { create_list(:request, 4) }
+      before { create_list(:request, 4, user_id: user.id, guest_id: nil) }
 
       it { is_expected.to be(false) }
     end
 
     context "when user_account have five requests" do
-      before { create_list(:request, 5) }
+      before { create_list(:request, 5, user_id: user.id, guest_id: nil) }
 
-      it { is_expected.to be(false) }
+      it { is_expected.to be(true) }
     end
   end
 
