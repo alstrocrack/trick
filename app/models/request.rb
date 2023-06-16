@@ -1,12 +1,21 @@
 class Request < ApplicationRecord
   def validate_request
-    raise ApplicationError.new(ErrorCode::E1013, ErrorMessage::InvalidStatusCode) if self.status_code.present? && self.status_code.to_s !~ /^[12345]\d{2}$/
+    if self.status_code.present? && self.status_code.to_s !~ /^[12345]\d{2}$/
+      raise ApplicationError.new(ErrorCode::E1013, ErrorMessage::InvalidStatusCode)
+    end
     raise ApplicationError.new(ErrorCode::E1009, ErrorMessage::InvalidRequestName) unless self.name.present?
   end
 
-  # Adjust response_body for nil, "" or " " to nil
-  def adjust_body
-    self.response_body = nil if self.response_body.blank?
+  def validate_user_request(user_account)
+    validate_request
+    raise ApplicationError.new(ErrorCode::E1015, ErrorMessage::AlreadyRequestNameUsed) if Request.exists?(name: self.name, user_id: user_account.id)
+    raise ApplicationError.new(ErrorCode::E1003, ErrorMessage::LimitRequetsExceeds) if user_account.is_exceed?
+  end
+
+  def validate_guest_request(guest_account)
+    validate_request
+    raise ApplicationError.new(ErrorCode::E1015, ErrorMessage::AlreadyRequestNameUsed) if Request.exists?(name: self.name, guest_id: guest_account.id)
+    raise ApplicationError.new(ErrorCode::E1003, ErrorMessage::LimitRequetsExceeds) if guest_account.is_exceed?
   end
 
   # An exception is raised if value exists but key does not

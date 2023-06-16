@@ -13,6 +13,7 @@ module ErrorCode
   E1012 = 1012
   E1013 = 1013
   E1014 = 1014
+  E1015 = 1015
 end
 
 module ErrorMessage
@@ -29,7 +30,8 @@ module ErrorMessage
   LackOfParametersWithName = "Please enter your name, email address, and password all." #1011
   NotLoggedIn = "Not logged in yet." #1012
   InvalidStatusCode = "Invalid status code." #1013
-  InvalidHeaderKey = "Invalid header key." #1013
+  InvalidHeaderKey = "Invalid header key." #1014
+  AlreadyRequestNameUsed = "Already request name used." #1015
 end
 
 module UserSessionStatus
