@@ -30,9 +30,8 @@ RSpec.describe Request, type: :model do
     let(:request_exec) { request.validate_user_request(user) }
 
     xcontext "when valid request" do
-      let(:request) { create(:request, user_id: user.id) }
       it "doesn't raise ApplicationError" do
-        expect { request.reload.validate_user_request(user) }.to_not raise_error
+        expect { request_exec }.to_not raise_error
       end
     end
 
@@ -47,6 +46,34 @@ RSpec.describe Request, type: :model do
 
     context "when 5 or more requests" do
       let!(:multiple_request) { create_list(:request, 5, user_id: user.id) }
+      it "raises Application Error" do
+        expect { request_exec }.to raise_error(ApplicationError)
+      end
+    end
+  end
+
+  describe "#validate_guest_request" do
+    let(:guest) { GuestUser.new(1) }
+    let(:request) { create(:request, guest_id: guest.id) }
+    let(:request_exec) { request.validate_guest_request(guest) }
+
+    xcontext "when valid request" do
+      it "doesn't raise ApplicationError" do
+        expect { request_exec }.to_not raise_error
+      end
+    end
+
+    context "when duplicate request exists" do
+      let!(:duplicate_request) { create(:request, guest_id: guest.id, name: "dup-request") }
+      let(:request) { create(:request, guest_id: guest.id, name: "dup-request") }
+
+      it "raises Application Error" do
+        expect { request_exec }.to raise_error(ApplicationError)
+      end
+    end
+
+    context "when 5 or more requests" do
+      let!(:multiple_request) { create_list(:request, 5, guest_id: guest.id) }
       it "raises Application Error" do
         expect { request_exec }.to raise_error(ApplicationError)
       end
