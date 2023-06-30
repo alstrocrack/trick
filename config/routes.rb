@@ -1,19 +1,17 @@
 Rails.application.routes.draw do
   # home
-  post "/home/add", controller: :home, action: :add
-  delete "/home/delete", controller: :home, action: :delete
+  resources :home, only: %i[create destroy]
 
   # login
-  get "/login", controller: :login, action: :index
-  post "/login", controller: :login, action: :authenticate
-  delete "/logout", controller: :login, action: :logout
+  resources :login, only: %i[index create] do
+    collection { delete :destroy, as: "logout" }
+  end
 
   # register
-  get "/register", controller: :register, action: :index
-  post "/register", controller: :register, action: :register
+  resources :register, only: %i[index create]
 
   # user
-  get "/users/:id", controller: :users, action: :index, as: :user
+  resources :users, only: :show
 
   # api
   namespace :api do

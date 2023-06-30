@@ -263,3 +263,18 @@ $base-font: 'Asap', sans-serif;
     }
   }
 }
+
+.trick__profile {
+  @include x-center;
+  height: 55vh;
+  &-record {
+    font-size: 1.25rem;
+    border-bottom: 1px solid $base-color;
+    &:not(:last-child) {
+      margin-bottom: 1rem;
+    }
+  }
+  &-label {
+    color: $base-color;
+  }
+}

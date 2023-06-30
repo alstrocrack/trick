@@ -5,7 +5,7 @@ class ApiKey < ApplicationRecord
   GUEST_PREFIX = "guest"
 
   def self.issue
-    return SecureRandom.uuid
+    return SecureRandom.urlsafe_base64
   end
 
   def self.get_user_api_key(id)

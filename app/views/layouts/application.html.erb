@@ -49,7 +49,7 @@
         <%- end %>
         <div>
           <%- if @user_account %>
-            <%= button_to "Logout", "/logout", method: :delete, class: "btn btn-outline-light trick__session" %>
+            <%= button_to "Logout", "/login", method: :delete, class: "btn btn-outline-light trick__session" %>
           <%- elsif !@user_account && request.path_info != "/login" && request.path_info != "/register" %>
             <%= link_to "Login", "/login", class: "btn btn-outline-light trick__session" %>
           <%- end %>

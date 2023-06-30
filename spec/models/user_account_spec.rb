@@ -1,31 +1,46 @@
 require "rails_helper"
 
 RSpec.describe UserAccount, type: :model do
-  let(:user_account) { FactoryBot.create(:user_account) }
+  let(:user) { create(:user_account) }
+  let!(:api_key) { create(:api_key, owner_id: "user-#{user.id}") }
 
-  context "when user_account have four requests" do
-    it "returns false" do
-      4.times { |n| FactoryBot.create(:request, user_id: user_account.id) }
-      expect(user_account.is_exceed?).to be false
+  describe "register multiple requests" do
+    subject { user.is_exceed? }
+
+    context "when user_account have four requests" do
+      before { create_list(:request, 4, user_id: user.id, guest_id: nil) }
+
+      it { is_expected.to be(false) }
+    end
+
+    context "when user_account have five requests" do
+      before { create_list(:request, 5, user_id: user.id, guest_id: nil) }
+
+      it { is_expected.to be(true) }
     end
   end
 
-  context "when user_account have five requests" do
-    it "returns true" do
-      5.times { |n| FactoryBot.create(:request, user_id: user_account.id) }
-      expect(user_account.is_exceed?).to be true
+  describe "verify that the password is correct" do
+    subject { user.authenticate?(password) }
+
+    context "when the correct password is entered" do
+      let(:password) { "password" }
+
+      it { is_expected.to be(true) }
+    end
+
+    context "when the wrong password is entered" do
+      let(:password) { "invalid_password" }
+
+      it { is_expected.to be(false) }
     end
   end
 
-  context "when the correct password is entered" do
-    it "authenticate the user" do
-      expect(user_account.authenticate?("password")).to be true
-    end
+  it "gets api_key by instance method" do
+    expect(user.get_api_key).to eq(api_key.value)
   end
 
-  context "when the wrong password is entered" do
-    it "does not authenticate users" do
-      expect(user_account.authenticate?("invalid_password")).to be false
-    end
+  it "gets api_key by class method" do
+    expect(UserAccount.get_api_key(user.name)).to eq(api_key.value)
   end
 end

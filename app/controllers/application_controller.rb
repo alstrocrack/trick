@@ -25,8 +25,8 @@ class ApplicationController < ActionController::Base
   # Provide strong parameter mechanism and exception handling when executing DELETE method
   # @param [String] fail_redirect_path Redirects to when processing fails
   # @param [Array] *filters Specify which of the DELETE parameters are permitted
-  # @note The redirect destination on successful processing is specified in the caller of the "delete_execute" method
-  def delete_execute(fail_redirect_path, *filters)
+  # @note The redirect destination on successful processing is specified in the caller of the "destroy_execute" method
+  def destroy_execute(fail_redirect_path, *filters)
     parameters = nil # If you don't write it like this, you will get an error that the filter is undefined
     parameters = params.permit(filters) if filters.size > 0
     yield(parameters)
@@ -43,21 +43,27 @@ class ApplicationController < ActionController::Base
   # @note Session management is also done by this method
   def set_authenticated_user(authenticated_user_account)
     @user_account = authenticated_user_account
-    session[:user] = SecureRandom.uuid
-    user_session = UserSession.new(value: session[:user], status: UserSessionStatus::Enable, user_id: @user_account.id)
-    user_session.save!
-    @guest_account, session[:guest] = nil if @guest_account || session[:guest] # Destroy session if session[:guest] exists
+    session_token = SecureRandom.urlsafe_base64
+    session[:user_id] = authenticated_user_account.id
+    session[:user_token] = session_token
+    UserSession.create!(session_digest: BCrypt::Password.create(session_token), status: UserSessionStatus::Enable, user_id: @user_account.id)
+    if @guest_account || session[:guest_id] || session[:guest_token] # Destroy session if session[:guest] exists
+      @guest_account = nil
+      session[:guest_id] = nil
+      session[:guest_token] = nil
+    end
   end
 
   private
 
   def fetch_user_session
-    if session[:user]
-      user_session = UserSession.find_by(value: session[:user], status: UserSessionStatus::Enable)
-      @user_account = UserAccount.find_by(id: user_session.user_id) if user_session
-    elsif session[:guest]
+    if session[:user_id] && session[:user_token]
+      user_session = UserSession.where(user_id: session[:user_id], status: UserSessionStatus::Enable).last
+      @user_account ||= UserAccount.find_by(id: session[:user_id]) if user_session.authenticate?(session[:user_token])
+    elsif session[:guest_id] && session[:guest_token]
       # Since we don't need to register a record in the user_accounts table, we only need to get the id from the user_sessions table.
-      @guest_account = GuestUser.new(session[:guest])
+      guest_session = UserSession.where(id: session[:guest_id], status: UserSessionStatus::Temporary).last
+      @guest_account ||= GuestUser.new(session[:guest_id]) if guest_session.authenticate?(session[:guest_token])
     end
   end
 end
