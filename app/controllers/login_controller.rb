@@ -1,5 +1,5 @@
 class LoginController < ApplicationController
-  before_action :validate_login_page, only: %i[index authenticate]
+  before_action :validate_login_page, only: %i[index create]
 
   def index
   end
