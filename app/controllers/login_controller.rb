@@ -12,7 +12,7 @@ class LoginController < ApplicationController
       raise ApplicationError.new(ErrorCode::E1006, ErrorMessage::InvalidPassword) unless user_account.authenticate?(parameters[:password])
       set_authenticated_user(user_account)
       flash[:success] = "Successfully login!"
-      redirect_to "/"
+      redirect_to root_path
     end
   end
 
@@ -28,13 +28,13 @@ class LoginController < ApplicationController
       session.delete(:user_id)
       session.delete(:user_token)
       flash[:success] = "Successfully logout!"
-      redirect_to "/"
+      redirect_to root_path
     end
   end
 
   private
 
   def validate_login_page
-    redirect_to "/" if @user_account
+    redirect_to root_path if @user_account
   end
 end
