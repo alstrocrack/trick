@@ -8,6 +8,6 @@ class UsersController < ApplicationController
   private
 
   def validate_user_page
-    redirect_to "/" if @user_account.nil? || params[:id].to_i != @user_account.id
+    redirect_to root_path if @user_account.nil? || params[:id].to_i != @user_account.id
   end
 end

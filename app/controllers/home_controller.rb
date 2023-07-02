@@ -42,7 +42,7 @@ class HomeController < ApplicationController
         end
         request.save!
         flash[:success] = "Successfully registerd"
-        redirect_to "/"
+        redirect_to root_path
       end
     end
   end
@@ -58,7 +58,7 @@ class HomeController < ApplicationController
       raise ApplicationError.new(ErrorCode::E1010, ErrorMessage::NotFoundRequest) if request.nil?
       request.destroy!
       flash[:success] = "Successfully deleted!"
-      redirect_to "/"
+      redirect_to root_path
     end
   end
 end
