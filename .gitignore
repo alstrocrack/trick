@@ -37,3 +37,4 @@
 # Added
 .env*
 /node_modules
+config/credentials.yml.enc
